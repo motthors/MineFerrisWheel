@@ -53,8 +53,15 @@ public class itemBlockFerrisCore extends ItemBlock implements IItemBlockModelHol
 	@Override
 	public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
 	{
+		if(!stack.hasTagCompound()) return true;
+		ItemBlock itemblock = (ItemBlock)stack.getItem();
+		if (!itemblock.func_150936_a(world, x, y, z, side, player, stack)) return false;
+
 		if(!world.getBlock(x, y, z).onBlockActivated(world, x, y, z, player, side, hitX, hitY, hitZ))
+		{
 			stack.stackSize--; // to consume itemstack if in creative mode
+			Logger.debugInfo("onItemUseFirst decr : " + stack.stackSize);
+		}
 		return false;
 	}
 
@@ -62,8 +69,8 @@ public class itemBlockFerrisCore extends ItemBlock implements IItemBlockModelHol
 	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side,
 			float hitX, float hitY, float hitZ)
 	{
-		if(!stack.hasTagCompound()) return true;
 		stack.stackSize++;
+		Logger.debugInfo("onItemUse : " + stack.stackSize);
 		return super.onItemUse(stack, player, world, x, y, z, side, hitX, hitY, hitZ);
 	}
 

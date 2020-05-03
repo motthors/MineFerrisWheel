@@ -65,7 +65,7 @@ public class ContainerFerrisCore extends ContainerBlockModelerBase {
 //					idx -= 36;
 					int horzNum = 4;
 					slot.xDisplayPosition = (idx % horzNum) * 18 + 5;
-					slot.yDisplayPosition = (idx / horzNum) * 26 + 22;
+					slot.yDisplayPosition = (idx / horzNum) * 26 + 30;
 					//  MFW_Logger.debugInfo(idx + " : " + slot.xDisplayPosition + "."+slot.yDisplayPosition);
 				} else {
 					slot.xDisplayPosition = -1000;

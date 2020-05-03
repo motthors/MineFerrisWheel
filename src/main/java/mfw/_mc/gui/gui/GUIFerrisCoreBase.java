@@ -18,6 +18,7 @@ import mochisystems._mc.gui.GUIBlockModelerBase;
 import mochisystems.math.Vec3d;
 import mochisystems.util.gui.GuiButtonWrapper;
 import mochisystems.util.gui.GuiGroupCanvas;
+import mochisystems.util.gui.GuiLabel;
 import mochisystems.util.gui.GuiUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -79,6 +80,7 @@ public abstract class GUIFerrisCoreBase extends GUIBlockModelerBase {
                 new GuiToggleButton(0,  82, 2,40, 13, "unlock", "lock", part.IsLock(),
                         isOn -> SendMessageToSetParam(GUICoreLock, 0)));
 
+        Canvas.Register(-1, new GuiLabel("Layer", fontRendererObj, 4, 18, 0xffffff));
 
         RegisterChildPartGuiButton();
     }
@@ -87,21 +89,16 @@ public abstract class GUIFerrisCoreBase extends GUIBlockModelerBase {
     {
         int count = 0, page = 0;
         int num = part.getSizeInventory();
-//        GuiUtil.addButton1(Canvas, buttonList, -1, 29, 12, 2, 2, "back", MessageFerrisMisc.GUIBackPartGUIOpen);
-
         while(true) {
             for (int vert = 0; vert < 6; ++vert) {
                 for (int horz = 0; horz < 4; ++horz) {
                     if(count >= num) return;
                     int x = horz * 18 + 5;
-                    int y = 38 + vert * 26;
-//                    GuiUtil.addButton1(Canvas, buttonList, PageGroupIdOffset+page,
-//                            16, 6, x, y, "",
-//                            MessageFerrisMisc.GUISubPartGUIOpenBase + count);
+                    int y = 46 + vert * 26;
                     int groupId = PageGroupIdOffset + page;
                     int childIndex = count;
                     Canvas.Register(groupId,
-                            new GuiButtonWrapper(0, x, y, 16, 6, "",
+                            new GuiButtonWrapper(0, x, y, 16, 8, "",
                                     () -> OpenChildGui(childIndex)));
                     count++;
                 }
@@ -129,50 +126,11 @@ public abstract class GUIFerrisCoreBase extends GUIBlockModelerBase {
 	}
 
 
-
-//    void setButtonPosFromNowTileState()
-//    {
-//    	setButtonPosFromGUIModeFlagEnum();
-//    }
-//    void setButtonPosFromGUIModeFlagEnum()
-//    {
-////    	@SuppressWarnings("unchecked")
-////		List<GuiButton> _buttonlist = buttonList;
-////    	for(GuiButton b : _buttonlist)
-////    	{
-////        	if(Canvas.IsDefaultGroup(b.id))continue;
-////    		if(flagManager(Canvas.GroupIdFromButtonId(b.id))) b.yPosition = listBPos.get(b.id).y;
-////        	else b.yPosition = -1000;
-////    	}
-//        for(int groupId : Canvas.GetGroupIdSet())
-//        {
-//            if(groupId >= PageGroupIdOffset) continue;
-//
-//            if(flagManager(groupId))
-//                Canvas.ActiveGroup(groupId);
-//            else
-//                Canvas.DisableGroup(groupId);
-//        }
-//    }
-
-    int prevPageGroup = -999;
+    private int prevPageGroup = -999;
     protected void SetEnableOpenChildButtonByID()
     {
         int page = container.getPageNum();
-//        int startIdx = page * 4 * 6;
-//        int endIdx = java.lang.Math.min((page+1)*4*6, part.GetChildren().length);
-//        for(Object b : buttonList)
-//        {
-//            int id = ((GuiButton)b).id;
-//            int flag = GUINameMap.get(id).flag;
-//            int slotIdx = flag - MessageFerrisMisc.GUISubPartGUIOpenBase;
-//            if(flag < MessageFerrisMisc.GUISubPartGUIOpenBase) continue;
-//            if(startIdx <= slotIdx && slotIdx < endIdx)
-//            {
-//                ((GuiButton)b).yPosition = listBPos.get(id).y;
-//            }
-//            else ((GuiButton)b).yPosition = -1000;
-//        }
+
         Canvas.DisableGroup(prevPageGroup);
         int newPageGroup = page + PageGroupIdOffset;
         Canvas.ActiveGroup(newPageGroup);
@@ -184,7 +142,7 @@ public abstract class GUIFerrisCoreBase extends GUIBlockModelerBase {
     {
         super.drawWorldBackground(p_146270_1_);
         int offset = 2;
-        int mx = 0+offset, my = height - 19 * 3 + offset;
+        int mx = offset, my = height - 19 * 3 + offset;
         int xx = 164 - offset, xy = height - offset;
         int color = 0x80777777;
         drawRect(mx, my, xx, xy, color);
@@ -221,6 +179,8 @@ public abstract class GUIFerrisCoreBase extends GUIBlockModelerBase {
             drawCenteredString(fontRendererObj, Char, i % 4 * 18 + 14, (i / 4) * 26 + 26, 0x808080);
             i++;
         }
+        drawCenteredString(fontRendererObj, Integer.toString(container.getPageNum()),54,5,0xffffff);
+        drawCenteredString(fontRendererObj, Integer.toString(part.layer),39,18,0xffffff);
     }
 
     @Override

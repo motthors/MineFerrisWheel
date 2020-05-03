@@ -42,8 +42,8 @@ public abstract class FerrisPartBase implements IInventory, IModel {
     private FerrisPartBase[] children = new FerrisPartBase[0];
     public Connector connectorFromParent = new Connector(Vec3d.Zero, "_root_");
     public Connector[] connectors = new Connector[0];
+    public int layer = 0;
     protected long lastUpdatingTick = 0;
-//    protected boolean isForrowParentTransform;
     protected boolean isIndependentTransform;
     public FerrisPartBase GetRootPart(){ return rootPart; }
     public FerrisPartBase GetParent(){ return parent; }
@@ -228,6 +228,7 @@ public abstract class FerrisPartBase implements IInventory, IModel {
 
     private static void Connect(FerrisPartBase parent, FerrisPartBase child, int slotIndex)
     {
+        child.layer = parent.layer + 1;
         child.rootPart = parent.rootPart;
         child.parent = parent;
         parent.children[slotIndex] = child;

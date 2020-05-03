@@ -466,7 +466,6 @@ public class GUIFerrisWheel extends GUIFerrisCoreBase {
 //        drawString(fontRendererObj, "Size :", width - 75, 4, 0xffffff);
 //        drawString(fontRendererObj, "pitch :", width - 75, 24, 0xffffff);
 //        drawString(fontRendererObj, "yaw  :", width - 75, 44, 0xffffff);
-        drawCenteredString(fontRendererObj, Integer.toString(container.getPageNum()),54,5,0xffffff);
 
 //        drawString(fontRendererObj, "x :", width - 75, 134, 0xffffff);
 //        drawString(fontRendererObj, "y :", width - 75, 154, 0xffffff);

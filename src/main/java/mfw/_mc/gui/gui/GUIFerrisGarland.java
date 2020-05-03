@@ -95,7 +95,6 @@ public class GUIFerrisGarland extends GUIFerrisCoreBase {
         drawString(fontRendererObj, Integer.toString(garland.GetCoreNum()), width - 50, 43, 0xffffff);
 //        drawString(fontRendererObj, String.format("rot1 : %4.2f", garland.pitch), width - 75, 24, 0xffffff);
 //        drawString(fontRendererObj, String.format("rot2 : %4.2f", garland.yaw), width - 75, 44, 0xffffff);
-        drawCenteredString(fontRendererObj, Integer.toString(container.getPageNum()),54,5,0xffffff);
 
         //debug
 //        drawRightedString(this.fontRendererObj, stringRSMode, width - 6, 121, 0xffffff);
