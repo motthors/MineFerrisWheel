@@ -7,6 +7,7 @@ import cpw.mods.fml.relauncher.Side;
 import mfw._core.MFW_Core;
 import mfw._mc.entity.EntityFerrisCollider;
 import mfw._mc.tileEntity.*;
+import mfw.renderer.*;
 import mochisystems.blockcopier.BlocksRenderer;
 import mochisystems.blockcopier.MTYBlockAccess;
 import mfw._mc.entity.entityPartSit;
@@ -14,14 +15,6 @@ import mfw._mc.entity.entityPartsTestBase;
 import mfw.handler.KeyHandlerClient;
 import mfw.handler.handlerClientConnected;
 import mfw.handler.renderEventCompileWheel;
-import mfw.renderer.renderBlockCutter;
-import mfw.renderer.renderBlockFerrisCore;
-import mfw.renderer.renderBlockSeatEx;
-import mfw.renderer.renderBlockSyabuNabe;
-import mfw.renderer.renderEntityFerrisCollider;
-import mfw.renderer.renderEntityNon;
-import mfw.renderer.renderEntityPartsTest;
-import mfw.renderer.renderTileEntityFerrisWheel;
 import mochisystems._mc.renderer.renderTileEntityLimitFrame;
 import mfw._mc.tileEntity.TileEntityFerrisConstructor;
 import mfw._mc.tileEntity.TileEntityFerrisCutter;
@@ -76,8 +69,8 @@ public class ClientProxy implements IProxy{
 //			MinecraftForge.EVENT_BUS.register(new RenderLivingEventHandler());
 //			FMLCommonHandler.instance().bus().register(new handerClientRenderTick(Minecraft.getMinecraft()));
 //		}
-		MinecraftForge.EVENT_BUS.register( new renderEventCompileWheel());
-		MinecraftForge.EVENT_BUS.register(MFW_Core.ItemFerrisCore);
+		MinecraftForge.EVENT_BUS.register(new renderEventCompileWheel());
+		MinecraftForge.EVENT_BUS.register(new FerrisArmorRenderer());
 	}
 
 	@Override

@@ -1,13 +1,11 @@
 package mfw._mc.item;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mfw.ferriswheel.*;
 import mochisystems._core.Logger;
 import mochisystems._core._Core;
 import mochisystems.manager.EntityWearingModelManager;
-import mochisystems.util.EntityModelWrapper;
 import mochisystems.util.IModel;
 import mochisystems.blockcopier.IItemBlockModelHolder;
 import mochisystems.util.IModelController;
@@ -16,11 +14,9 @@ import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import net.minecraftforge.client.event.RenderPlayerEvent;
 
 public class itemBlockFerrisCore extends ItemBlock implements IItemBlockModelHolder {
 
@@ -99,30 +95,6 @@ public class itemBlockFerrisCore extends ItemBlock implements IItemBlockModelHol
 	{
 		Logger.debugInfo("getArmorModel");
 		return null;
-	}
-
-	@SubscribeEvent
-	public void onArmorRender(RenderPlayerEvent.SetArmorModel event)
-	{
-		if ( event.stack == null || !( event.stack.getItem() instanceof itemBlockFerrisCore ) )
-		{
-			return;
-		}
-		event.result = 1;
-//		itemBlockFerrisCore item = (itemBlockFerrisCore) event.stack.getItem();
-
-		mochisystems.util.ModelBiped model = EntityWearingModelManager.GetModelBiped(event.entityLiving, event.stack, event.slot);
-		model.isSneak = event.entityLiving.isSneaking();
-		if ( event.entityLiving instanceof EntityPlayer )
-		{
-			ItemStack held = event.entityPlayer.inventory.getCurrentItem();
-			model.heldItemRight = ( held != null ) ? 0 : 1;
-			if ( held != null )
-			{
-				model.aimedBow = event.entityPlayer.getItemInUseCount() > 0 && held.getItemUseAction().equals( EnumAction.bow );
-			}
-		}
-		event.renderer.setRenderPassModel( model );
 	}
 
 	@Override
