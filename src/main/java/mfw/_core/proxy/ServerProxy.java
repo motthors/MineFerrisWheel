@@ -4,6 +4,8 @@ import cpw.mods.fml.relauncher.Side;
 import mochisystems.blockcopier.BlocksRenderer;
 import mochisystems.blockcopier.MTYBlockAccess;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 
 public class ServerProxy implements IProxy{
 	
@@ -46,6 +48,9 @@ public class ServerProxy implements IProxy{
 	{
 		return null;
 	}
-	
-	
+
+	public boolean CanPlaceBlock(World world, int x, int y, int z, int side, EntityPlayer player, ItemStack stack)
+	{
+		return true;
+	}
 }

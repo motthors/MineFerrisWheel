@@ -2,6 +2,7 @@ package mfw._mc.item;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import mfw._core.MFW_Core;
 import mfw.ferriswheel.*;
 import mochisystems._core.Logger;
 import mochisystems._core._Core;
@@ -50,8 +51,7 @@ public class itemBlockFerrisCore extends ItemBlock implements IItemBlockModelHol
 	public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
 	{
 		if(!stack.hasTagCompound()) return true;
-		ItemBlock itemblock = (ItemBlock)stack.getItem();
-		if (!itemblock.func_150936_a(world, x, y, z, side, player, stack)) return false;
+		if (!MFW_Core.proxy.CanPlaceBlock(world, x, y, z, side, player, stack)) return false;
 
 		if(!world.getBlock(x, y, z).onBlockActivated(world, x, y, z, player, side, hitX, hitY, hitZ))
 		{

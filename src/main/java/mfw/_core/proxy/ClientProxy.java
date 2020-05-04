@@ -21,6 +21,9 @@ import mfw._mc.tileEntity.TileEntityFerrisCutter;
 import mochisystems.util.gui.GuiDragController;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 
 public class ClientProxy implements IProxy{
@@ -105,5 +108,10 @@ public class ClientProxy implements IProxy{
 		return Minecraft.getMinecraft().thePlayer;
 	}
 
+	public boolean CanPlaceBlock(World world, int x, int y, int z, int side, EntityPlayer player, ItemStack stack)
+	{
+		ItemBlock itemblock = (ItemBlock)stack.getItem();
+		return itemblock.func_150936_a(world, x, y, z, side, player, stack);
+	}
 
 }

@@ -1,5 +1,7 @@
 package mfw.ferriswheel;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import mfw._core.MFW_Command;
 import mfw._mc.gui.gui.GUIFerrisCoreBase;
 import mfw._mc.gui.gui.GUIFerrisWheel;
@@ -564,6 +566,7 @@ public class FerrisWheel extends FerrisPartBase implements IFerrisParamGetter {
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public GUIFerrisCoreBase GetGUIInstance(int x, int y, int z, InventoryPlayer inventory, FerrisPartBase part) {
         return new GUIFerrisWheel(x, y, z, inventory, (FerrisWheel) part);
     }

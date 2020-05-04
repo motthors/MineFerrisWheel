@@ -1,5 +1,7 @@
 package mfw.ferriswheel;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import mfw._mc.gui.gui.GUIFerrisCoreBase;
 import mochisystems.util.IModel;
 import mochisystems.blockcopier.IItemBlockModelHolder;
@@ -29,6 +31,8 @@ public abstract class FerrisPartBase implements IInventory, IModel {
 
     public abstract float GetSoundSourceValue();
     public abstract void toggleStopFlag();
+
+    @SideOnly(Side.CLIENT)
     public abstract GUIFerrisCoreBase GetGUIInstance(int x, int y, int z, InventoryPlayer inventory, FerrisPartBase part);
 
     //// sub modules
@@ -412,8 +416,9 @@ public abstract class FerrisPartBase implements IInventory, IModel {
 
     private void UpdateSyncChildren()
     {
-        for(FerrisPartBase child : SyncedChildren)
+        for(int i = 0; i < SyncedChildren.size(); ++i)
         {
+            FerrisPartBase child = SyncedChildren.get(i);
             if(child != null)
             {
                 child.UpdateRsPower();
