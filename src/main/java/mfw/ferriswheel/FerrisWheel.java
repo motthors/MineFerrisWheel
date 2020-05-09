@@ -494,10 +494,12 @@ public class FerrisWheel extends FerrisPartBase implements IFerrisParamGetter {
         }
         for(int i=0; i<copyNum; ++i)
         {
-            GL11.glRotated(copyRotOffset, vecCloneAxis.x, vecCloneAxis.y, vecCloneAxis.z);
+            GL11.glPushMatrix();
+            GL11.glRotated(copyRotOffset*i, vecCloneAxis.x, vecCloneAxis.y, vecCloneAxis.z);
             if(pass==0) renderer.render();
             else renderer.render2();
 //            BlocksRep.renderEntities(partialtick);
+            GL11.glPopMatrix();
         }
     }
 
@@ -535,6 +537,7 @@ public class FerrisWheel extends FerrisPartBase implements IFerrisParamGetter {
         soundManager.SetSoundIndex(nbt.getInteger("soundindex"));
 
         setRotAxis();
+        copyRotOffset = 360f / copyNum;
     }
 
     protected void writeMineToNBT(NBTTagCompound nbt)
