@@ -176,6 +176,7 @@ public class GUIFerrisConstructor extends GUIBlockModelerBase {
         drawString(this.fontRendererObj, "RotateCopy", width-76, 3, 0xffffff);
         drawString(this.fontRendererObj, "Copy Mode", width-76, 153, 0xffffff);
         drawRightedString(this.fontRendererObj, Integer.toString(tile.copyNum), width-2, 15, 0xffffff);
+        drawRightedString(fontRendererObj, (int)(100*tile.getCookProgress())+"%", width - 70, height-15, 0xffffff);
     }
 
     
