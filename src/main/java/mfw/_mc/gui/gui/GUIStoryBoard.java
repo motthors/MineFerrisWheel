@@ -80,7 +80,7 @@ public class GUIStoryBoard extends GUIBlockModelerBase {
 
     private int maxPanelCount;
 
-	private GuiFormatedTextField serialCode;
+	private String serialCode;
 
 
     public GUIStoryBoard(int x, int y, int z, FerrisPartBase part)
@@ -182,38 +182,30 @@ public class GUIStoryBoard extends GUIBlockModelerBase {
 
 
         //serializer
-		serialCode = new GuiFormatedTextField(fontRendererObj, width*2/3, height - 25, 150, 15, 0xffffff, Integer.MAX_VALUE,
-				() -> serialCode.getText(), s -> true, s -> {});
-
-
 		GuiButtonWrapper copy = new GuiButtonWrapper(0, width*6/9, height - 18, 40, 13, "Copy",
 				() -> {
 					clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-					StringSelection selection = new StringSelection(serialCode.getText());
+					StringSelection selection = new StringSelection(serialCode);
 					clipboard.setContents(selection, null);
-				});
-		GuiButtonWrapper apply = new GuiButtonWrapper(0, width*7/9, height - 18, 40, 13, "Apply",
-				() -> {
-					this.part.storyboardManager.createFromSerialCode(serialCode.getText());
-					//パネルタイムライン更新
-					PanelButtonList.clear();
-					for( IProgramPanel p : this.part.storyboardManager.getPanelList()){AddNewPanel(p, true);}
-					FormatPanelButtonPosition();
-					updateToServer();
-					serialCode.setText(this.part.storyboardManager.ToSerialCode());
 				});
 		GuiButtonWrapper paste = new GuiButtonWrapper(0, width*8/9, height - 18, 40, 13, "Paste",
 				() -> {
 					Transferable object = clipboard.getContents(null);
 					try {
-						serialCode.setText((String)object.getTransferData(DataFlavor.stringFlavor));
+						serialCode = ((String)object.getTransferData(DataFlavor.stringFlavor));
+						this.part.storyboardManager.createFromSerialCode(serialCode);
+						//パネルタイムライン更新
+						PanelButtonList.clear();
+						for( IProgramPanel p : this.part.storyboardManager.getPanelList()){AddNewPanel(p, true);}
+						FormatPanelButtonPosition();
+						updateToServer();
+						serialCode = (this.part.storyboardManager.ToSerialCode());
 					} catch(Exception e) {
 						e.printStackTrace();
 					}
 				});
-		canvas.Register(GuiGroup_Def, paste);
 		canvas.Register(GuiGroup_Def, copy);
-		canvas.Register(GuiGroup_Def, apply);
+		canvas.Register(GuiGroup_Def, paste);
 
 
 
