@@ -198,7 +198,7 @@ public class StoryBoardManager {
 			if(savedSerialCode.equals(source))return false;
 			this.clear();
 			if(source.equals(""))return true;
-			Logger.debugInfo("recieve serial : " + part.GetName() + source);
+//			Logger.debugInfo("recieve serial : " + part.GetName() + source);
 			source.replace("\r\n", "");
 			source.replace("\n", "");
 			source.replace(" ", "");
@@ -259,16 +259,17 @@ public class StoryBoardManager {
 	public static IProgramPanel createPanel_forSerial(char mode)
 	{
 		switch(mode){
-		case 'S' : return createPanel(Mode.set);
-		case 'T' : return createPanel(Mode.timer);
-		case 'L' : return createPanel(Mode.loop);
+		case 'S' : return new SetValuePanel();
+		case 'T' : return new TimerPanel();
+		case 'L' : return new LoopPanel();
+		case 'l' : return new LoopPanel.LoopEndPanel(null);
 		case 'k' : 
-		case 'K' : return createPanel(Mode.keyframe);
-		case 'W' : return createPanel(Mode.wait);
-		case 'N' : return createPanel(Mode.notify);
-		case 'M' : return createPanel(Mode.sound);
+		case 'K' : return new KeyFramePanel();
+		case 'W' : return new WaitPanel();
+		case 'N' : return new NotifyPanel();
+		case 'M' : return new SoundPanel();
 		}
-		return createPanel(Mode.set);
+		return new SetValuePanel();
 	}
 	public static IProgramPanel createPanel(String mode)
 	{
@@ -280,11 +281,11 @@ public class StoryBoardManager {
 		case set : return new SetValuePanel();
 		case timer : return new TimerPanel();
 		case loop : return new LoopPanel();
+		case loopend : return new LoopPanel.LoopEndPanel(null);
 		case keyframe : return new KeyFramePanel();
 		case wait : return new WaitPanel();
 		case notify : return new NotifyPanel();
 		case sound : return new SoundPanel();
-		case loopend : return null;
 		}
 		return new SetValuePanel();
 	}

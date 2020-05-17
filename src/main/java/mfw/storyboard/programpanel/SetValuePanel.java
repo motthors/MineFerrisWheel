@@ -4,6 +4,8 @@ import mfw.ferriswheel.FerrisPartBase;
 import mfw.ferriswheel.IFerrisParamGetter;
 import net.minecraft.util.MathHelper;
 
+import java.util.Arrays;
+
 public class SetValuePanel implements IProgramPanel {
 	
 	private static String[] targets = {
@@ -15,7 +17,7 @@ public class SetValuePanel implements IProgramPanel {
 			"Phase",
 	};
 	private static String[] modes = {
-			"SetOrigin",
+			"To",
 			"Add",
 	};
 	
@@ -33,6 +35,15 @@ public class SetValuePanel implements IProgramPanel {
 	private int modeIndex = 0;
 	private int targetIndex = 0;
 	private float Value = 0.0f;
+
+	public SetValuePanel(){}
+
+	public SetValuePanel(String target, String mode, float to) {
+		targetIndex = Arrays.asList(targets).indexOf(target);
+		modeIndex = Arrays.asList(modes).indexOf(mode);
+		if(targetIndex < 0 || modeIndex < 0) throw new IllegalArgumentException("KeyFramePanel has no argument param.");
+		Value = to;
+	}
 
 	@Override
 	public boolean CanUseWith(FerrisPartBase part)

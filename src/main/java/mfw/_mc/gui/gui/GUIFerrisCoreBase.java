@@ -77,7 +77,8 @@ public abstract class GUIFerrisCoreBase extends GUIBlockModelerBase {
 
 //        GuiUtil.addButton1(Canvas, buttonList, -1,40, 13, 82, 2, "unlock", GUICoreLock, true, part.IsLock(), "lock");
         Canvas.Register(-1,
-                new GuiToggleButton(0,  82, 2,40, 13, "unlock", "lock", part.IsLock(),
+                new GuiToggleButton(0,  82, 2,40, 13, "unlock", "lock",
+                        () -> part.IsLock(),
                         isOn -> SendMessageToSetParam(GUICoreLock, 0)));
 
         Canvas.Register(-1, new GuiLabel("Layer", fontRendererObj, 4, 18, 0xffffff));

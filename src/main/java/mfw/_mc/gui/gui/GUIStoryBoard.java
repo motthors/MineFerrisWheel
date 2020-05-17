@@ -12,11 +12,14 @@ import mfw.ferriswheel.Connector;
 import mfw.ferriswheel.FerrisPartBase;
 import mfw._mc.gui.CustomTexButton;
 import mfw.storyboard.programpanel.IProgramPanel.Mode;
+import mochisystems._core.Logger;
+import mochisystems._core._Core;
 import mochisystems._mc.gui.GUIBlockModelerBase;
 import mochisystems._mc.gui.GuiToggleButton;
 import mochisystems.math.Math;
 import mochisystems.math.Vec3d;
 import mochisystems.util.gui.*;
+import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
 import mfw._core.MFW_Core;
@@ -45,11 +48,12 @@ public class GUIStoryBoard extends GUIBlockModelerBase {
 
 	private GuiGroupCanvas canvas = new GuiGroupCanvas();
 	private int GuiGroup_Def = 0;
-	private int GuiGroup_AddPanel =1;
+	private int GuiGroup_AddPanel = 1;
 	private int GuiGroup_Preset = 2;
 	private int GuiGroup_Timeline = 3;
-	private int GuiGroup_Selections = 100;
+	private int GuiGroup_Activate = 4;
 	private int GuiGroup_InspectorBase = 10;
+	private int GuiGroup_Selections = 100;
 
     private LinkedList<GuiStoryPartPanel> PanelButtonList;
     private ArrayList<GuiLabel> TimeLineIndexLabel;
@@ -67,6 +71,13 @@ public class GUIStoryBoard extends GUIBlockModelerBase {
 	private GuiToggleButton AddNewBaseButton;
 	private GuiImage currentPanelPointer;
 	private boolean isDirty;
+	private boolean isActiveNewPanel;
+	private boolean isActivePresetPanel;
+	private float TimelineScale = 1;
+	private float TimelineScaleTemp = 1;
+	private float TimelineScroll = 1;
+	private float TimelineScrollTemp = 1;
+	private int TimeLineLength;
 
 	private Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
 
@@ -117,6 +128,28 @@ public class GUIStoryBoard extends GUIBlockModelerBase {
 		Connector.Fix(dest, part.connectorFromParent, tick);
 	}
 
+	@Override
+	public void handleMouseInput()
+	{
+		int i = Mouse.getEventDWheel();
+		int y = Mouse.getEventY();
+		if(i != 0 && y > (height - 40)*2){
+			CloseInspector();
+			TimelineScrollTemp += -0.1f * i;
+			TimelineScrollTemp = Math.Clamp(TimelineScrollTemp, 0, (TimeLineLength-20) * TimelineScaleTemp);
+		}
+		else super.handleMouseInput();
+	}
+
+	private void ScaleTimeline(float add)
+	{
+		CloseInspector();
+		float prev = TimelineScaleTemp;
+		TimelineScaleTemp += add;
+		TimelineScaleTemp = Math.Clamp(TimelineScaleTemp, 0.1f, 2f);
+		TimelineScrollTemp *= TimelineScaleTemp / prev;
+	}
+
 	// GUIを開くたび呼ばれる初期化関数
 	@Override
 	public void initGui()
@@ -131,36 +164,49 @@ public class GUIStoryBoard extends GUIBlockModelerBase {
 		maxPanelCount = 0;
 
 
-		GuiToggleButton addPanel = new GuiToggleButton(0, width/6-30, height - 24, 60, 18,
-				"New Panel", "New Panel", false,
+		GuiToggleButton addPanelBase = new GuiToggleButton(0, width/6-30, height - 24, 60, 18,
+				"New Panel", "New Panel",
+				() -> isActiveNewPanel,
 				isOn -> {
+					isActiveNewPanel = isOn;
 					if(isOn) canvas.ActiveGroup(GuiGroup_AddPanel);
 					else canvas.DisableGroup(GuiGroup_AddPanel);
 					CloseInspector();
 		});
-		canvas.Register(GuiGroup_Def, addPanel);
-		AddNewBaseButton = addPanel;
+		canvas.Register(GuiGroup_Def, addPanelBase);
+		AddNewBaseButton = addPanelBase;
 
-		currentPanelPointer = new GuiImage(current, -2, -2, 37, 37);
+		currentPanelPointer = new GuiImage(current, 2, -18, 37, 37);
 		canvas.Register(GuiGroup_Timeline, currentPanelPointer);
+
+		GuiUtil.addButton2(canvas, GuiGroup_Def, 0, 40, "", 0,
+				() -> ScaleTimeline(-0.25f),
+				() -> ScaleTimeline(0.25f));
+		canvas.Register(GuiGroup_Def,
+				new GuiButtonWrapper(0, 60, 40, 40, 12, "reset",
+						() -> {
+							TimelineScale = 1;
+							TimelineScaleTemp = 1;
+						}
+				));
 
 		GuiImage newpanelBase = new GuiImage(AddNewBase, 0, 0, 63, 148);
 		canvas.Register(GuiGroup_AddPanel, newpanelBase);
-		CustomTexButton part;
-		part = new CustomTexButton(set,10, 10, 20, 20, ()->AddNewPanel(new SetValuePanel(), false));
-		canvas.Register(GuiGroup_AddPanel ,part);
-		part = new CustomTexButton(keyframe, 10, 32, 20, 20, ()->AddNewPanel(new KeyFramePanel(), false));
-		canvas.Register(GuiGroup_AddPanel, part);
-		part = new CustomTexButton(sound, 10, 54, 20, 20, ()->AddNewPanel(new SoundPanel(), false));
-		canvas.Register(GuiGroup_AddPanel, part);
-		part = new CustomTexButton(timer,  32, 10, 20, 20, ()->AddNewPanel(new TimerPanel(), false));
-		canvas.Register(GuiGroup_AddPanel, part);
-		part = new CustomTexButton(wait,32, 32, 20, 20, ()->AddNewPanel(new WaitPanel(), false));
-		canvas.Register(GuiGroup_AddPanel, part);
-		part = new CustomTexButton(loop,32, 54, 20, 20, ()->AddNewPanel(new LoopPanel(), false));
-		canvas.Register(GuiGroup_AddPanel, part);
-		part = new CustomTexButton(notify,32, 76, 20, 20, ()->AddNewPanel(new NotifyPanel(), false));
-		canvas.Register(GuiGroup_AddPanel, part);
+		CustomTexButton addPanel;
+		addPanel = new CustomTexButton(set,10, 10, 20, 20, ()->AddNewPanel(new SetValuePanel(), false));
+		canvas.Register(GuiGroup_AddPanel ,addPanel);
+		addPanel = new CustomTexButton(keyframe, 10, 32, 20, 20, ()->AddNewPanel(new KeyFramePanel(), false));
+		canvas.Register(GuiGroup_AddPanel, addPanel);
+		addPanel = new CustomTexButton(sound, 10, 54, 20, 20, ()->AddNewPanel(new SoundPanel(), false));
+		canvas.Register(GuiGroup_AddPanel, addPanel);
+		addPanel = new CustomTexButton(timer,  32, 10, 20, 20, ()->AddNewPanel(new TimerPanel(), false));
+		canvas.Register(GuiGroup_AddPanel, addPanel);
+		addPanel = new CustomTexButton(wait,32, 32, 20, 20, ()->AddNewPanel(new WaitPanel(), false));
+		canvas.Register(GuiGroup_AddPanel, addPanel);
+		addPanel = new CustomTexButton(loop,32, 54, 20, 20, ()->AddNewPanel(new LoopPanel(), false));
+		canvas.Register(GuiGroup_AddPanel, addPanel);
+		addPanel = new CustomTexButton(notify,32, 76, 20, 20, ()->AddNewPanel(new NotifyPanel(), false));
+		canvas.Register(GuiGroup_AddPanel, addPanel);
 		canvas.MoveGroup(GuiGroup_AddPanel, width/6-31, height - 174, false);
 
 
@@ -175,13 +221,65 @@ public class GUIStoryBoard extends GUIBlockModelerBase {
 
 
 
-		GuiButtonWrapper Preset = new GuiButtonWrapper(0, width*3/6-30, height - 24, 60, 18,
-				"Preset",
-				() -> canvas.ActiveGroup(GuiGroup_Preset));
-		canvas.Register(GuiGroup_Def, Preset);
+		GuiToggleButton OpenPreset = new GuiToggleButton(0, width*3/6-30, height - 24, 60, 18,
+				_Core.Instance.I18n("gui.core.story.preset"),
+				_Core.Instance.I18n("gui.core.story.preset"),
+				() -> isActivePresetPanel,
+				isOn -> {
+					isActivePresetPanel = isOn;
+					if(isOn) canvas.ActiveGroup(GuiGroup_Preset);
+					else canvas.DisableGroup(GuiGroup_Preset);
+					CloseInspector();
+				});
+		canvas.Register(GuiGroup_Def, OpenPreset);
+
+		// Preset
+		GuiImage presetBase = new GuiImage(AddNewBase, 0, 0, 120, 148);
+		canvas.Register(GuiGroup_Preset, presetBase);
+		GuiButtonWrapper preset;
+		preset = new GuiButtonWrapper(0,10, 10, 100, 20,
+				_Core.Instance.I18n("gui.core.story.preset.roundtrip"),
+				() -> {
+					DeleteAllPanel();
+					AddNewPanel(new WaitPanel(0), true);
+					AddNewPanel(new KeyFramePanel("Position", "Set", "Linear", 90, 20, false), true);
+					AddNewPanel(new WaitPanel(0), true);
+					AddNewPanel(new KeyFramePanel("Position", "Set", "Linear", 0, 20, false), true);
+					FormatPanelButtonPosition();
+				});
+		canvas.Register(GuiGroup_Preset ,preset);
+		preset = new GuiButtonWrapper(0,10, 32, 100, 20,
+				_Core.Instance.I18n("gui.core.story.preset.autoroundtrip"),
+				() -> {
+					DeleteAllPanel();
+					AddNewPanel(new KeyFramePanel("Position", "Set", "Linear", 90, 20, false), true);
+					AddNewPanel(new KeyFramePanel("Position", "Set", "Linear", 0, 20, false), true);
+					FormatPanelButtonPosition();
+				});
+		canvas.Register(GuiGroup_Preset ,preset);
+		preset = new GuiButtonWrapper(0,10, 54, 100, 20,
+				_Core.Instance.I18n("gui.core.story.preset.step"),
+				() -> {
+					DeleteAllPanel();
+					AddNewPanel(new WaitPanel(0), true);
+					AddNewPanel(new KeyFramePanel("Position", "Add", "Linear", 90, 20, false), true);
+					FormatPanelButtonPosition();
+				});
+		canvas.Register(GuiGroup_Preset ,preset);
+		preset = new GuiButtonWrapper(0,10, 76, 100, 20,
+				_Core.Instance.I18n("gui.core.story.preset.clock"),
+				() -> {
+					DeleteAllPanel();
+					AddNewPanel(new TimerPanel(20), true);
+					AddNewPanel(new SetValuePanel("Position", "Add", 10), true);
+					FormatPanelButtonPosition();
+				});
+		canvas.Register(GuiGroup_Preset ,preset);
+
+		canvas.MoveGroup(GuiGroup_Preset, width/2-60, height - 174, false);
 
 
-        //serializer
+		//serializer
 		GuiButtonWrapper copy = new GuiButtonWrapper(0, width*6/9, height - 18, 40, 13, "Copy",
 				() -> {
 					clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
@@ -213,7 +311,7 @@ public class GUIStoryBoard extends GUIBlockModelerBase {
 
 		//現在のストーリーを適用
 		GuiButtonWrapper Activate = new GuiButtonWrapper(0, width-60, 40, 60, 18, "Activate", this::updateToServer);
-		canvas.Register(GuiGroup_Def, Activate);
+		canvas.Register(GuiGroup_Activate, Activate);
 
 
 
@@ -240,11 +338,13 @@ public class GUIStoryBoard extends GUIBlockModelerBase {
 		}
 		FormatPanelButtonPosition();
 		isDirty = false;
+		canvas.DisableGroup(GuiGroup_Activate);
 
 		if(PanelButtonList.isEmpty())
 		{
 			AddNewBaseButton.SetState(true);
 			canvas.ActiveGroup(GuiGroup_AddPanel);
+			isActiveNewPanel = true;
 		}
 		canvas.ActiveGroup(GuiGroup_Def);
 		canvas.MoveGroup(GuiGroup_Timeline, 10, 10, false);
@@ -253,9 +353,9 @@ public class GUIStoryBoard extends GUIBlockModelerBase {
 
     private void MakeInspector(Mode mode, IProgramPanel panel, ArrayList<GUIStoryBoardSettingPart> partList)
 	{
-		int x = 5, y = 5;
+		int x = 5, y = 10;
 		int groupId = mode.GetIdx() + GuiGroup_InspectorBase;
-		canvas.Register(groupId, new GuiImage(Inspector, 0, y, 63, 170));
+		canvas.Register(groupId, new GuiImage(Inspector, 0, y, 80, 200));
 		y +=12;
 
 		CustomTexButton close = new CustomTexButton(cancelTex,-13, 150, 15, 15, this::DeletePanel);
@@ -272,14 +372,14 @@ public class GUIStoryBoard extends GUIBlockModelerBase {
 			switch(panel.getType(i))
 			{
 				case change:
-					GuiButtonWrapper button = new GuiButtonWrapper(0, x, y, 52, 14, "",null);
+					GuiButtonWrapper button = new GuiButtonWrapper(0, x, y, 69, 14, "",null);
 					canvas.Register(groupId, button);
 					button.SetAction(()->OpenSelection(currentEditPanel.panel, apiIdx, button));
 					part.SetButton(button);
 					break;
 
 				case inputValue:
-					GuiFormatedTextField field = new GuiFormatedTextField(fontRendererObj, x, y, 52, 14, 0xffffff, 12,
+					GuiFormatedTextField field = new GuiFormatedTextField(fontRendererObj, x, y, 69, 14, 0xffffff, 12,
 							() -> (currentEditPanel!=null) ? currentEditPanel.panel.getValue(apiIdx) : "",
 							s -> s.matches(GuiFormatedTextField.regexNumber),
 							(t) -> currentEditPanel.panel.setValue(apiIdx, t));
@@ -332,6 +432,7 @@ public class GUIStoryBoard extends GUIBlockModelerBase {
 
 		if(!isInit) FormatPanelButtonPosition();
 		isDirty = true;
+		canvas.ActiveGroup(GuiGroup_Activate);
 	}
 
 	private void DeletePanel()
@@ -354,7 +455,25 @@ public class GUIStoryBoard extends GUIBlockModelerBase {
 		FormatPanelButtonPosition();
 		canvas.DisableGroup(currentInspectorGroupId);
 		isDirty = true;
+		canvas.ActiveGroup(GuiGroup_Activate);
 	}
+
+	private void DeleteAllPanel()
+	{
+		for(GuiStoryPartPanel panel : PanelButtonList)
+		{
+			canvas.DeleteElement(GuiGroup_Timeline, panel);
+		}
+		PanelButtonList.clear();
+
+//		for(GuiLabel label: TimeLineIndexLabel)
+//		{
+//			canvas.DeleteElement(GuiGroup_Timeline, label);
+//		}
+//		TimeLineIndexLabel.clear();
+
+		isDirty = true;
+		canvas.ActiveGroup(GuiGroup_Activate);}
 
 	private void OpenOrCloseInspector(GuiStoryPartPanel panel)
 	{
@@ -367,11 +486,17 @@ public class GUIStoryBoard extends GUIBlockModelerBase {
 			currentEditPanel = panel;
 			if (currentInspectorGroupId >= GuiGroup_InspectorBase) canvas.DisableGroup(currentInspectorGroupId);
 			currentInspectorGroupId = panel.panel.getMode().GetIdx() + GuiGroup_InspectorBase;
+			GuiGroupCanvas.Group g = canvas.GetGroupInfo(GuiGroup_Timeline);
+			int x = (int)((panel.GetPositionX() + 10) / g.scale.x);
+			int y = (int)((panel.GetPositionY() + 25) / g.scale.y);
 			canvas.ActiveGroup(currentInspectorGroupId);
-			canvas.MoveGroup(currentInspectorGroupId, panel.GetPositionX() - 12, panel.GetPositionY() + 25, false);
+			canvas.MoveGroup(currentInspectorGroupId, x, y, false);
 			changeSelectionButtonDisplay(panel.panel.getMode());
 		}
+		isActiveNewPanel = false;
+		isActivePresetPanel = false;
 		canvas.DisableGroup(GuiGroup_AddPanel);
+		canvas.DisableGroup(GuiGroup_Preset);
 		canvas.DisableGroup(GuiGroup_Selections);
 		AddNewBaseButton.SetState(false);
 	}
@@ -391,8 +516,11 @@ public class GUIStoryBoard extends GUIBlockModelerBase {
 		currentSelectionIndex = apiIdx;
 		GuiGroupCanvas.Group info = canvas.GetGroupInfo(currentInspectorGroupId);
 		canvas.ActiveGroup(GuiGroup_Selections);
-		canvas.MoveGroup(GuiGroup_Selections, info.offsetX + 70, info.offsetY + 12 + 24 * apiIdx, false);
 		String[] datas = panel.GetSelectionLabels(apiIdx);
+		int x = info.offsetX + 90;
+		int y = info.offsetY + 12 + 24 * apiIdx;
+		y = Math.Clamp(y, 10, height - datas.length * 19);
+		canvas.MoveGroup(GuiGroup_Selections, x, y, false);
 		int i = 0;
 		for(; i < datas.length; ++i)
 		{
@@ -443,6 +571,12 @@ public class GUIStoryBoard extends GUIBlockModelerBase {
 
     private void updateToServer()
     {
+		canvas.DisableGroup(GuiGroup_AddPanel);
+		canvas.DisableGroup(GuiGroup_Preset);
+		canvas.DisableGroup(GuiGroup_Selections);
+		isActivePresetPanel = false;
+		isActiveNewPanel = false;
+
     	StoryBoardManager manager = part.storyboardManager;
     	manager.clear();
     	for(GuiStoryPartPanel panel : PanelButtonList)
@@ -456,7 +590,8 @@ public class GUIStoryBoard extends GUIBlockModelerBase {
     	MessageFerrisMisc packet = new MessageFerrisMisc(blockposX,blockposY,blockposZ, flag, 0, 0, serialArray);
 	    MFW_PacketHandler.INSTANCE.sendToServer(packet);
 		isDirty = false;
-    }
+		canvas.ActiveGroup(GuiGroup_Activate);
+	}
 
 
 
@@ -486,7 +621,7 @@ public class GUIStoryBoard extends GUIBlockModelerBase {
 	{
 		Mode mode;
 		int offsetX = 10;
-		int offsetY = 0;
+		int offsetY = -10;
 		int size = PanelButtonList.size();
 		int labelIdx = 0;
 		Stack<GuiStoryPartPanel> loopPanelStack = new Stack<>();
@@ -514,13 +649,14 @@ public class GUIStoryBoard extends GUIBlockModelerBase {
 			if(mode != Mode.loopend)
 			{
 				GuiLabel label = TimeLineIndexLabel.get(labelIdx);
-				label.SetPosition(offsetX, -7);
+				label.SetPosition(offsetX, -17);
 				labelIdx++;
 			}
 
 			offsetX += panelWidth + 4;
 			if(mode == Mode.loop) offsetY +=2;
 		}
+		TimeLineLength = offsetX;
 	}
 
 	private int startPos;
@@ -634,6 +770,13 @@ public class GUIStoryBoard extends GUIBlockModelerBase {
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseZ)
     {
         super.drawGuiContainerForegroundLayer(mouseX, mouseZ);
+        canvas.Update();
+
+		TimelineScale = (float)Math.Lerp(0.1, TimelineScale, TimelineScaleTemp);
+		canvas.SetScale(GuiGroup_Timeline, TimelineScale, TimelineScale, TimelineScale, false);
+
+		TimelineScroll = (float)Math.Lerp(0.1f, TimelineScroll, TimelineScrollTemp);
+		canvas.MoveGroup(GuiGroup_Timeline, (int)-TimelineScroll, 20, false);
 
         int idx = part.storyboardManager.getCurrentTargetIndex()-1;
         if(!isDirty && 0 < idx && idx < PanelButtonList.size())

@@ -405,6 +405,7 @@ public class FerrisWheel extends FerrisPartBase implements IFerrisParamGetter {
         {
             if(isUpdatedRsPowerNow() == 1)storyboardManager.OnRSEnable();
             storyboardManager.Update();
+            rotAngle.roundNow();
         }
 
         rotSpeed *= (1f - rotResist);
@@ -431,6 +432,7 @@ public class FerrisWheel extends FerrisPartBase implements IFerrisParamGetter {
         // ここで指定する回転軸はCoreSideのNormalの逆
         rotation.Make(rotationAxis, Math.toRadians(rotAngle.get()));
         prevRotation.Make(rotationAxis, Math.toRadians(rotAngle.getPrev()));
+//        Logger.debugInfo(Math.toRadians(rotAngle.get())+"");
 
         if(parent != null)
         {
@@ -533,7 +535,6 @@ public class FerrisWheel extends FerrisPartBase implements IFerrisParamGetter {
         shouldDrawCore = nbt.getBoolean("isdrawingcore");
         isEnableCollider = nbt.getBoolean("isenablecollider");
 
-        storyboardManager.createFromSerialCode(nbt.getString("storyboard"));
         soundManager.SetSoundIndex(nbt.getInteger("soundindex"));
 
         setRotAxis();
@@ -563,9 +564,7 @@ public class FerrisWheel extends FerrisPartBase implements IFerrisParamGetter {
         nbt.setBoolean("isenablecollider", isEnableCollider);
 
         // 同期用親の保存
-        nbt.setString("storyboard", storyboardManager.ToSerialCode());
         nbt.setInteger("soundindex", soundManager.GetSoundIndex());
-
     }
 
     @Override

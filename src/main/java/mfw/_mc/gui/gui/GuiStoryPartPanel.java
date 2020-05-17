@@ -71,6 +71,12 @@ public class GuiStoryPartPanel extends CustomTexButton implements IGuiDraggable 
     }
 
     @Override
+    public void Update()
+    {
+
+    }
+
+    @Override
     public void Draw(int mouseX, int mouseY)
     {
         super.Draw(mouseX, mouseY);

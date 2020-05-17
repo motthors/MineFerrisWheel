@@ -52,7 +52,8 @@ public class GUIFerrisGarland extends GUIFerrisCoreBase {
 //        GuiUtil.addButton1(Canvas, buttonList, -1, 40, 13, width - 122, 2, "core", MessageFerrisMisc.GUICoreToggleDrawCore);
         Canvas.Register(-1,
                 new GuiToggleButton(0,  width - 122, 2, 40, 13,
-                        "core", "core", garland.ShouldDrawCore(),
+                        "core", "core",
+                        () -> garland.ShouldDrawCore(),
                         isOn -> SendMessageToSetParam(GUICoreToggleDrawCore, 0)));
 
 //        addButton1(70, 13, width - 76, 68, "pos only",

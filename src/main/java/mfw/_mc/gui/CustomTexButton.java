@@ -117,6 +117,11 @@ public class CustomTexButton extends GuiButtonExt implements IGuiElement {
     @Override
     public void MouseClicked(int x, int y, int buttonId){}
     @Override
+    public void Update()
+    {
+
+    }
+    @Override
     public void Draw(int mouseX, int mouseY)
     {
         drawButton(Minecraft.getMinecraft(), mouseX, mouseY);

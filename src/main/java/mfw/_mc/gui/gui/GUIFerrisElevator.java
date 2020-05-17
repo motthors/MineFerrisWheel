@@ -91,16 +91,19 @@ public class GUIFerrisElevator extends GUIFerrisCoreBase {
                 () -> SendMessageToSetParam(GUICoreSoundSelectDown, 0));
 
         Canvas.Register(gDef,
-                new GuiToggleButton(0,  width - 122, 2, 40, 13, "core", "core", elevator.ShouldDrawCore(),
+                new GuiToggleButton(0,  width - 122, 2, 40, 13, "core", "core",
+                        () -> elevator.ShouldDrawCore(),
                         isOn -> SendMessageToSetParam(GUICoreToggleDrawCore, 0)));
 
         Canvas.Register(gDef,
-                new GuiToggleButton(0,  width - 76, 68, 70, 13, "pos only", "pos only", part.GetIsForrowParentTransform(),
+                new GuiToggleButton(0,  width - 76, 68, 70, 13, "pos only", "pos only",
+                        () -> part.GetIsForrowParentTransform(),
                         isOn -> SendMessageToSetParam(GUICoreToggleForrowTransform, 0)));
 
 
         Canvas.Register(ButtonGroup_Main,
-                new GuiToggleButton(0,  170, height-52, 28, 28,  "||", "|>", elevator.stopFlag,
+                new GuiToggleButton(0,  170, height-52, 28, 28,  "||", "|>",
+                        () -> elevator.stopFlag,
                         isOn -> SendMessageToSetParam(GUICoreStop, 0)));
 
         Canvas.Register(ButtonGroup_Main,
@@ -138,7 +141,8 @@ public class GUIFerrisElevator extends GUIFerrisCoreBase {
 
         String text = StatCollector.translateToLocal("gui.core.isEnableSyncTarget");
         Canvas.Register(ButtonGroup_isSync,
-                new GuiToggleButton(0,   width - 160, height - 75,  70, 13,  text, text, elevator.isEnableSync,
+                new GuiToggleButton(0,   width - 160, height - 75,  70, 13,  text, text,
+                        () -> elevator.isEnableSync,
                         isOn -> {
                             elevator.toggleSyncFlag();
                             if(isOn) ChangeUIForSync();
@@ -148,7 +152,8 @@ public class GUIFerrisElevator extends GUIFerrisCoreBase {
 
         text = StatCollector.translateToLocal("gui.core.isEnableStoryBoard");
         Canvas.Register(ButtonGroup_isStory,
-                new GuiToggleButton(0,    width - 340, height - 75, 70, 13,  text, text, elevator.isEnableStoryBoard,
+                new GuiToggleButton(0,    width - 340, height - 75, 70, 13,  text, text,
+                        () -> elevator.isEnableStoryBoard,
                         isOn -> {
                             if(isOn) ChangeUIForStoryboard();
                             else ChangeUIForNormal();

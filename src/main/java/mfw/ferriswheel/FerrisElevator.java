@@ -347,7 +347,6 @@ public class FerrisElevator extends FerrisPartBase implements IFerrisParamGetter
         yaw = nbt.getFloat("yaw");
         shouldDrawCore = nbt.getBoolean("isdrawingcore");
 
-        storyboardManager.createFromSerialCode(nbt.getString("storyboard"));
         soundManager.SetSoundIndex(nbt.getInteger("soundindex"));
     }
 
@@ -369,7 +368,6 @@ public class FerrisElevator extends FerrisPartBase implements IFerrisParamGetter
         nbt.setBoolean("isdrawingcore", shouldDrawCore);
 
         // 同期用親の保存
-        nbt.setString("storyboard", storyboardManager.ToSerialCode());
         nbt.setInteger("soundindex", soundManager.GetSoundIndex());
     }
 

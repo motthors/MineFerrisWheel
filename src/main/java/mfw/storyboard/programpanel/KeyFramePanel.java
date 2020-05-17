@@ -1,7 +1,11 @@
 package mfw.storyboard.programpanel;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 
+import com.sun.javaws.exceptions.InvalidArgumentException;
+import javafx.animation.KeyFrame;
 import mfw.ferriswheel.FerrisPartBase;
 import mfw.ferriswheel.IFerrisParamGetter;
 import mochisystems._core.Logger;
@@ -18,7 +22,7 @@ public class KeyFramePanel implements IProgramPanel {
 			"Phase",
 	};
 	private static String[] modes = {
-			"SetOrigin",
+			"Set",
 			"Add",
 	};
 	private static String[] interpolations = {
@@ -62,6 +66,18 @@ public class KeyFramePanel implements IProgramPanel {
 	private float targetValue;
 	private int tickTimeCount;
 	private int tickTimeTarget;
+
+	public KeyFramePanel(){}
+
+	public KeyFramePanel(String target, String mode, String interpo, float to, int tick, boolean parallel) {
+		targetIndex = Arrays.asList(targets).indexOf(target);
+		modeIndex = Arrays.asList(modes).indexOf(mode);
+		interpolationIndex = Arrays.asList(interpolations).indexOf(interpo);
+		if(targetIndex < 0 || modeIndex < 0 || interpolationIndex < 0) throw new IllegalArgumentException("KeyFramePanel has no argument param.");
+		To = to;
+		tickTimeTarget = tick;
+		isParallel = parallel;
+	}
 
 	@Override
 	public boolean CanUseWith(FerrisPartBase part)

@@ -8,7 +8,6 @@ public class WaitPanel implements IProgramPanel {
 	private static String[] modes = {
 			"RsInput",
 			"Notify",
-			"NonStop",
 	};
 	
 	private static DataPack[] datapacks = {
@@ -20,7 +19,14 @@ public class WaitPanel implements IProgramPanel {
 	private int modeIndex = 0;
 
 	private boolean canDispose = false;
-	
+
+	public WaitPanel(){}
+
+	public WaitPanel(int modeIdx)
+	{
+		modeIndex = modeIdx;
+	}
+
 	@Override
 	public boolean CanUseWith(FerrisPartBase part)
 	{
@@ -95,11 +101,7 @@ public class WaitPanel implements IProgramPanel {
 	@Override
 	public void start()
 	{
-		if(modeIndex == 2) // nonstop
-		{
-			canDispose = true;
-		}
-		else canDispose = false;
+		canDispose = false;
 	}
 	
 	

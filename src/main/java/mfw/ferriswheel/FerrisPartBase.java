@@ -3,6 +3,7 @@ package mfw.ferriswheel;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mfw._mc.gui.gui.GUIFerrisCoreBase;
+import mochisystems._core.Logger;
 import mochisystems.util.IModel;
 import mochisystems.blockcopier.IItemBlockModelHolder;
 import mochisystems.util.IModelController;
@@ -298,6 +299,7 @@ public abstract class FerrisPartBase implements IInventory, IModel {
         syncTarget.readFromNBT(nbt,"syncTarget");
         isEnableSync = nbt.getBoolean("enablesyncrot");
         isSyncTargetSpeed = nbt.getBoolean("synctargetspeed");
+        storyboardManager.createFromSerialCode(nbt.getString("storyboard"));
     }
 
     // 設置後変化のあるもののみでよい。基本データは保存しておいたものをWriteToNBT()で入れてる
@@ -311,6 +313,7 @@ public abstract class FerrisPartBase implements IInventory, IModel {
         syncTarget.writeToNBT(nbt, "syncTarget");
         nbt.setBoolean("synctargetspeed", isSyncTargetSpeed);
         nbt.setBoolean("enablesyncrot", isEnableSync);
+        nbt.setString("storyboard", storyboardManager.ToSerialCode());
     }
 
     private void readChildFromNBT(NBTTagCompound nbt)

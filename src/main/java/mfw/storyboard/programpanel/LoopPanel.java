@@ -12,8 +12,7 @@ public class LoopPanel implements IProgramPanel {
 	};
 
 	private final int id_loopNum = 0;
-	private final int id_ChildrenDataSource = 1;
-	
+
 	private int LoopNum = 1;
 	private int LoopCount;
 	private LoopEndPanel endPanel;
@@ -86,7 +85,6 @@ public class LoopPanel implements IProgramPanel {
 				temp = (Integer.parseInt((String)value)); 
 				LoopNum = (temp<1) ? 1 : temp;
 				break;
-//			case id_ChildrenDataSource : createFromSerialCode((String)value); break;
 			}
 			return new int[]{apiIndex};
 		}catch(NumberFormatException e){
@@ -145,10 +143,6 @@ public class LoopPanel implements IProgramPanel {
 	{
 		String[] p = source.split("x");
 		setValue(id_loopNum, p[1]);
-		int St = source.indexOf("[");
-		int Ed = source.indexOf("]");
-		String childrenSource = source.substring(St+1, Ed);
-		setValue(id_ChildrenDataSource, childrenSource);
 	}
 
 

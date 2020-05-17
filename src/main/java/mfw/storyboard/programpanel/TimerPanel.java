@@ -17,6 +17,12 @@ public class TimerPanel implements IProgramPanel {
 	private int tickTimeCount;
 	private int tickTimeTarget = 20;
 
+	public TimerPanel(){}
+	public TimerPanel(int tick)
+	{
+		tickTimeTarget = tick;
+	}
+
 	@Override
 	public boolean CanUseWith(FerrisPartBase part)
 	{

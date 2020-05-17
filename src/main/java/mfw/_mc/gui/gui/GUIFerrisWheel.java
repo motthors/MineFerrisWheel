@@ -49,20 +49,23 @@ public class GUIFerrisWheel extends GUIFerrisCoreBase {
 
 //        GuiUtil.addButton1(Canvas, buttonList, -1,40, 13, width - 122, 2, "core", MessageFerrisMisc.GUICoreToggleDrawCore, true, wheel.ShouldDrawCore(), "core");
         Canvas.Register(gDef,
-                new GuiToggleButton(0,  width - 122, 2, 40, 13, "core", "core", wheel.ShouldDrawCore(),
+                new GuiToggleButton(0,  width - 122, 2, 40, 13, "core", "core",
+                () -> wheel.ShouldDrawCore(),
                 isOn -> SendMessageToSetParam(GUICoreToggleDrawCore, 0)));
 
 
 //        GuiUtil.addButton1(Canvas, buttonList, -1,46, 13, width - 128, 17, "collider", MessageFerrisMisc.GUICoreToggleEnableCollider, true, wheel.IsEnableCollider(), "collider");
         Canvas.Register(gDef,
-                new GuiToggleButton(0,  width - 128, 17, 46, 13, "collider", "collider", wheel.IsEnableCollider(),
+                new GuiToggleButton(0,  width - 128, 17, 46, 13, "collider", "collider",
+                        () -> wheel.IsEnableCollider(),
                         isOn -> SendMessageToSetParam(GUICoreToggleEnableCollider, 0)));
 
 
 //        GuiUtil.addButton1(Canvas, buttonList, -1,70, 13, width - 76, 68, "pos only",
 //                MessageFerrisMisc.GUICoreToggleForrowTransform, true, !part.GetIsForrowParentTransform(), "pos only");
         Canvas.Register(gDef,
-                new GuiToggleButton(0,  width - 76, 68, 70, 13, "pos only", "pos only", part.GetIsForrowParentTransform(),
+                new GuiToggleButton(0,  width - 76, 68, 70, 13, "pos only", "pos only",
+                        () -> part.GetIsForrowParentTransform(),
                         isOn -> SendMessageToSetParam(GUICoreToggleForrowTransform, 0)));
 
 
@@ -99,7 +102,8 @@ public class GUIFerrisWheel extends GUIFerrisCoreBase {
 
 
         Canvas.Register(ButtonGroup_Main,
-                new GuiToggleButton(0,  170, height-52, 28, 28,  "||", "|>", !wheel.stopFlag,
+                new GuiToggleButton(0,  170, height-52, 28, 28,  "||", "|>",
+                        () -> !wheel.stopFlag,
                         isOn -> SendMessageToSetParam(GUICoreStop, 0)));
 
 
@@ -109,14 +113,14 @@ public class GUIFerrisWheel extends GUIFerrisCoreBase {
 
 
         Accel(Canvas, fontRendererObj, ButtonGroup_Accel, height, wheel,
-                () -> String.format("%5.1f", wheel.GetAccel()),
+                () -> String.format("%6.1f", wheel.GetAccel()),
                 v -> SendMessageToSetParam(MessageFerrisMisc.GUICoreSetAccel, v));
 
 
         AmpPhase(Canvas, fontRendererObj, ButtonGroup_AmpPhase, width, height, wheel,
-                () -> String.format("%5.1f", wheel.syncAmplitude.get()),
+                () -> String.format("%6.1f", wheel.syncAmplitude.get()),
                 v -> SendMessageToSetParam(MessageFerrisMisc.GUICoreSetAmp, v),
-                () -> String.format("%5.1f", wheel.syncPhase.get()),
+                () -> String.format("%6.1f", wheel.syncPhase.get()),
                 v -> SendMessageToSetParam(MessageFerrisMisc.GUICoreSetPhase, v));
 
         Regist(Canvas, fontRendererObj, ButtonGroup_Weight, width, height, wheel,
@@ -152,7 +156,8 @@ public class GUIFerrisWheel extends GUIFerrisCoreBase {
 
         String text = StatCollector.translateToLocal("gui.core.isEnableSyncTarget");
         Canvas.Register(ButtonGroup_isSync,
-                new GuiToggleButton(0,   width - 160, height - 75,  70, 13,  text, text, wheel.isEnableSync,
+                new GuiToggleButton(0,   width - 160, height - 75,  70, 13,  text, text,
+                        () -> wheel.isEnableSync,
                         isOn -> {
                             wheel.toggleSyncFlag();
                             if(isOn) ChangeUIForSync();
@@ -162,7 +167,8 @@ public class GUIFerrisWheel extends GUIFerrisCoreBase {
 
         text = StatCollector.translateToLocal("gui.core.isEnableStoryBoard");
         Canvas.Register(ButtonGroup_isStory,
-                new GuiToggleButton(0,    width - 340, height - 75, 70, 13,  text, text, wheel.isEnableStoryBoard,
+                new GuiToggleButton(0,    width - 340, height - 75, 70, 13,  text, text,
+                        () -> wheel.isEnableStoryBoard,
                         isOn -> {
                             if(isOn) ChangeUIForStoryboard();
                             else ChangeUIForNormal();
@@ -171,7 +177,8 @@ public class GUIFerrisWheel extends GUIFerrisCoreBase {
 
         text = StatCollector.translateToLocal("gui.core.isEnableSinConvert");
         Canvas.Register(ButtonGroup_isPendulum,
-                new GuiToggleButton(0, width - 250, height - 75, 70, 13,  text, text, wheel.isEnableSinConvert,
+                new GuiToggleButton(0, width - 250, height - 75, 70, 13,  text, text,
+                        () -> wheel.isEnableSinConvert,
                         isOn -> {
                             wheel.toggleSinConvertFlag();
                             if(isOn) ChangeUIForPendium();
@@ -199,7 +206,7 @@ public class GUIFerrisWheel extends GUIFerrisCoreBase {
         Canvas.Register(groupId, new GuiLabel("scale :", fontRenderer, offsetX - 5, offsetY, 0xffffff));
 
         Canvas.Register(groupId,
-                new GuiFormatedTextField(fontRenderer, offsetX + 25, offsetY, 30, 10, 0xffffff, 12,
+                new GuiFormatedTextField(fontRenderer, offsetX + 25, offsetY, 60, 10, 0xffffff, 12,
                         updateText,
                         s -> s.matches(GuiFormatedTextField.regexNumber),
                         (v) -> confirmed.accept(Float.parseFloat(v))));
@@ -222,12 +229,12 @@ public class GUIFerrisWheel extends GUIFerrisCoreBase {
         Canvas.Register(groupId, new GuiLabel("yaw   :", fontRenderer, offsetX - 5, offsetY + 21, 0xffffff));
 
         Canvas.Register(groupId,
-                new GuiFormatedTextField(fontRenderer, offsetX + 30, offsetY, 30, 10, 0xffffff, 12,
+                new GuiFormatedTextField(fontRenderer, offsetX + 30, offsetY, 60, 10, 0xffffff, 12,
                         updateTextPitch,
                         s -> s.matches(GuiFormatedTextField.regexNumber),
                         (t) -> confirmedPitch.accept(Float.parseFloat(t))));
         Canvas.Register(groupId,
-                new GuiFormatedTextField(fontRenderer, offsetX + 30, offsetY + 21, 30, 10, 0xffffff, 12,
+                new GuiFormatedTextField(fontRenderer, offsetX + 30, offsetY + 21, 60, 10, 0xffffff, 12,
                         updateTextYaw,
                         s -> s.matches(GuiFormatedTextField.regexNumber),
                         (t) ->  confirmedYaw.accept(Float.parseFloat(t))));
@@ -259,17 +266,17 @@ public class GUIFerrisWheel extends GUIFerrisCoreBase {
         Canvas.Register(groupId, new GuiLabel("z :", fontRenderer, offsetX - 5, offsetY + 41, 0xffffff));
 
         Canvas.Register(groupId,
-                new GuiFormatedTextField(fontRenderer, offsetX + 12, offsetY + 1, 30, 10, 0xffffff, 12,
+                new GuiFormatedTextField(fontRenderer, offsetX + 12, offsetY + 1, 60, 10, 0xffffff, 12,
                         updateTextX,
                         s -> s.matches(GuiFormatedTextField.regexNumber),
                         t -> confirmedX.accept(Float.parseFloat(t))));
         Canvas.Register(groupId,
-                new GuiFormatedTextField(fontRenderer, offsetX + 12, offsetY + 21, 30, 10, 0xffffff, 12,
+                new GuiFormatedTextField(fontRenderer, offsetX + 12, offsetY + 21, 60, 10, 0xffffff, 12,
                         updateTextY,
                         s -> s.matches(GuiFormatedTextField.regexNumber),
                         t -> confirmedY.accept(Float.parseFloat(t))));
         Canvas.Register(groupId,
-                new GuiFormatedTextField(fontRenderer, offsetX + 12, offsetY + 41, 30, 10, 0xffffff, 12,
+                new GuiFormatedTextField(fontRenderer, offsetX + 12, offsetY + 41, 60, 10, 0xffffff, 12,
                         updateTextZ,
                         s -> s.matches(GuiFormatedTextField.regexNumber),
                         t -> confirmedZ.accept(Float.parseFloat(t))));
@@ -318,12 +325,12 @@ public class GUIFerrisWheel extends GUIFerrisCoreBase {
         );
 
         Canvas.Register(groupId,
-                new GuiFormatedTextField(fontRenderer, width - 48, height - 45, 30, 11, 0xffffff, 12,
+                new GuiFormatedTextField(fontRenderer, width - 48, height - 45, 60, 11, 0xffffff, 12,
                         updateTextAmp,
                         s -> s.matches(GuiFormatedTextField.regexNumber),
                         t -> confirmedAmp.accept(Float.parseFloat(t))));
         Canvas.Register(groupId,
-                new GuiFormatedTextField(fontRenderer, width - 48, height - 25, 30, 11, 0xffffff, 12,
+                new GuiFormatedTextField(fontRenderer, width - 48, height - 25, 60, 11, 0xffffff, 12,
                         updateTextPhase,
                         s -> s.matches(GuiFormatedTextField.regexNumber),
                         t -> confirmedPhase.accept(Float.parseFloat(t))));
@@ -343,7 +350,7 @@ public class GUIFerrisWheel extends GUIFerrisCoreBase {
                 () -> confirmed.accept(model.GetRegist() / 1.01f),
                 () -> confirmed.accept(model.GetRegist() / 1.1f));
         Canvas.Register(groupId,
-                new GuiFormatedTextField(fontRenderer, 277, height - 38, 50, 11, 0xffffff, 12,
+                new GuiFormatedTextField(fontRenderer, 277, height - 38, 60, 11, 0xffffff, 12,
                         updateText,
                         s -> s.matches(GuiFormatedTextField.regexNumber),
                         t -> confirmed.accept(Float.parseFloat(t))));
@@ -362,7 +369,7 @@ public class GUIFerrisWheel extends GUIFerrisCoreBase {
                 () -> confirmed.accept(model.GetAccel()+1f),
                 () -> confirmed.accept(model.GetAccel()+10));
         Canvas.Register(groupId,
-                new GuiFormatedTextField(fontRenderer, 273, height - 59, 30, 11, 0xffffff, 12,
+                new GuiFormatedTextField(fontRenderer, 273, height - 59, 60, 11, 0xffffff, 12,
                         updateText,
                         s -> s.matches(GuiFormatedTextField.regexNumber),
                         t -> confirmed.accept(Float.parseFloat(t))));
