@@ -39,7 +39,7 @@ public class ClientProxy implements IProxy{
 	public void preInit()
 	{	
 		renderTileEntityLimitFrame rendererFrame = new renderTileEntityLimitFrame();
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityFerrisConstructor.class, rendererFrame);
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityFerrisConstructor.class, new renderTileEntityFerrisConstructor());
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityElevatorConstructor.class, rendererFrame);
 
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityFerrisCore.Wheel.class, new renderTileEntityFerrisWheel());

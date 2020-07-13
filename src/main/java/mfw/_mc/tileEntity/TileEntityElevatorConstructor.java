@@ -113,14 +113,12 @@ public class TileEntityElevatorConstructor extends TileEntityBlocksScannerBase {
     @Override
     public void registerExternalParam(NBTTagCompound nbt)
     {
-        // => FerrisPartBase
-        nbt.setString("ModelName", modelName.isEmpty()?"-NoName-":modelName);
+        super.registerExternalParam(nbt);
 
         // -> FerrisWheel
         nbt.setFloat("wsize", 1f);
 
         // => BlockReplicator
-        nbt.setBoolean("isdrawingcore",FlagDrawCore);
         nbt.setByte("constructorside", (byte)side);
         nbt.setInteger("copiedPosX", xCoord); // CTM
         nbt.setInteger("copiedPosY", yCoord);

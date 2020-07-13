@@ -1,16 +1,14 @@
 package mfw.handler;
 
 import mochisystems._core.Logger;
-import mochisystems.blockcopier.message.MessageChangeLimitLine;
-import mochisystems.blockcopier.message.PacketHandler;
+import mochisystems.message.MessageChangeLimitLine;
+import mochisystems.message.PacketHandler;
 import org.lwjgl.input.Keyboard;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.InputEvent;
 import mfw.manager.ChangingLimitLineManager;
-import mfw.message.MFW_PacketHandler;
-import mfw.message.MessageFerrisMisc;
 import mochisystems.blockcopier.ILimitLine;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.tileentity.TileEntity;

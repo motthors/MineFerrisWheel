@@ -1,5 +1,6 @@
 package mfw.storyboard.programpanel;
 
+import java.awt.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -217,8 +218,10 @@ public class KeyFramePanel implements IProgramPanel {
 		canDispose = false;
 		//frame calc
 		KeyFrameValue.clear();
+		float distance = targetValue - From;
 		for(int i=0; i<=tickTimeTarget; ++i){
-			KeyFrameValue.add((targetValue - From)*calcInterpolation( (float)i / (float)tickTimeTarget ) + From);
+			float d = distance * calcInterpolation( (float)i / (float)tickTimeTarget);
+			KeyFrameValue.add(d + From);
 		}
 //		MFW_Logger.debugInfo("****K_");
 	}

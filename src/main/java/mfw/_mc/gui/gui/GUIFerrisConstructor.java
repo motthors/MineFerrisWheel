@@ -1,10 +1,11 @@
 package mfw._mc.gui.gui;
 
+import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import mochisystems._mc.gui.GuiToggleButton;
 import mochisystems._mc.gui.GUIBlockModelerBase;
 import mochisystems._mc.tileentity.TileEntityBlocksScannerBase;
-import mochisystems.blockcopier.message.MessageChangeLimitLine;
-import mochisystems.blockcopier.message.PacketHandler;
+import mochisystems.message.MessageChangeLimitLine;
+import mochisystems.message.PacketHandler;
 import mochisystems.math.Vec3d;
 import mochisystems.util.gui.*;
 import net.minecraft.util.StatCollector;
@@ -51,9 +52,9 @@ public class GUIFerrisConstructor extends GUIBlockModelerBase {
 
         int gDef = -1;
         GuiFormatedTextField field = new GuiFormatedTextField(fontRendererObj, (width-95)/2, 4, 95, 12, 0xffffff,40,
-                () -> tile.modelName,
+                () -> tile.GetModelName(),
                 t -> true,
-                t -> tile.modelName = t);
+                tile::SetModelName);
         Canvas.Register(gDef, field);
 
         Canvas.Register(gDef, new GuiLabel("Length", fontRendererObj, 2, 20, 0xffffff));
@@ -112,26 +113,91 @@ public class GUIFerrisConstructor extends GUIBlockModelerBase {
                 () -> SendMessageForIndex(GUIAddCopyNum, 1) );
 
 
-        GuiUtil.addCheckButton(Canvas, fontRendererObj, -1, width - 20, 42, tile.FlagDrawCore,
+        GuiUtil.addCheckButton(Canvas, fontRendererObj, -1, width - 20, 42, () -> tile.GetFlagDrawCore(),
                 "draw core",
                 isOn -> SendMessageForIndex(GUIDrawCoreFlag, 0));
-        GuiUtil.addCheckButton(Canvas, fontRendererObj, -1, width - 20, 82, tile.FlagDrawEntity,
+        GuiUtil.addCheckButton(Canvas, fontRendererObj, -1, width - 20, 82, () -> tile.FlagDrawEntity,
                 "draw Mobs",
                 isOn -> SendMessageForIndex(GUIDrawEntityFlag, 0));
-        GuiUtil.addCheckButton(Canvas, fontRendererObj, -1, width - 20, 122, tile.isCoreConnector,
+        GuiUtil.addCheckButton(Canvas, fontRendererObj, -1, width - 20, 122, () -> tile.isCoreConnector,
                 StatCollector.translateToLocal("gui.constructor.switch.coreconnector"),
                 isOn -> SendMessageForIndex(GUIToggleCoreIsConnector, 0));
 
+        GuiUtil.addCheckButton(Canvas, fontRendererObj, -1, 250, height - 40, () -> tile.TrueCopy,
+                "True Copy",
+                isOn -> SendMessageForIndex(GUITrueCopy, 0));
+
 //        GuiUtil.addButton1(Canvas, buttonList, 0, 40, 16, width - 42, 132, tile.copyMode != 0 ? "Clone" : "Add", MessageFerrisMisc.GUICopyModeChange);
-        Canvas.Register(-1,
-                new GuiToggleButton(0,  width - 42, 162,  40, 16, "Clone", "Add", tile.copyMode !=0,
+        Canvas.Register(gDef,
+                new GuiToggleButton(0,  width - 42, 162,  40, 16,
+                        "Clone", "Add",
+                        () -> tile.copyMode != 0,
                         isOn -> SendMessageForIndex(GUICopyModeChange, 0)));
 
+        Canvas.Register(gDef,
+                new GuiToggleButton(0, 80, height-92, 60, 13,
+                        "Head off", "Head ON",
+                        () -> tile.BodyGuide == 1,
+                        isOn -> ChangeBodyGuide(isOn, 1)));
+        Canvas.Register(gDef,
+                new GuiToggleButton(0, 140, height-92, 60, 13,
+                        "Arm L off", "Arm LON",
+                        () -> tile.BodyGuide == 2,
+                        isOn -> ChangeBodyGuide(isOn, 2)));
+        Canvas.Register(gDef,
+                new GuiToggleButton(0, 200, height-92, 60, 13,
+                        "Arm R off", "Arm R ON",
+                        () -> tile.BodyGuide == 3,
+                        isOn -> ChangeBodyGuide(isOn, 3)));
+        Canvas.Register(gDef,
+                new GuiToggleButton(0, 80, height-76, 60, 13,
+                        "Body off", "Body ON",
+                        () -> tile.BodyGuide == 4,
+                        isOn -> ChangeBodyGuide(isOn, 4)));
+        Canvas.Register(gDef,
+                new GuiToggleButton(0, 140, height-76, 60, 13,
+                        "Leg L off", "Leg L ON",
+                        () -> tile.BodyGuide == 5,
+                        isOn -> ChangeBodyGuide(isOn, 5)));
+        Canvas.Register(gDef,
+                new GuiToggleButton(0, 200, height-76, 60, 13,
+                        "Leg R off", "Leg R ON",
+                        () -> tile.BodyGuide == 6,
+                        isOn -> ChangeBodyGuide(isOn, 6)));
+
+
+        Canvas.Register(1, new GuiLabel("scale :", fontRendererObj, -5, 0, 0xffffff));
+        Canvas.Register(1,
+                new GuiFormatedTextField(fontRendererObj, 25, 1, 60, 10, 0xffffff, 12,
+                        () -> String.format("%6.2f", tile.scale),
+                        s -> s.matches(GuiFormatedTextField.regexNumber),
+                        (v) -> SendMessageToSetParam(MessageFerrisMisc.GUIConstructScale, Float.parseFloat(v))));
+        GuiUtil.addButton4(Canvas, 1, 0, 11,
+                () -> SendMessageToSetParam(MessageFerrisMisc.GUIConstructScale, tile.scale - 0.1f),
+                () -> SendMessageToSetParam(MessageFerrisMisc.GUIConstructScale, tile.scale - 0.01f),
+                () -> SendMessageToSetParam(MessageFerrisMisc.GUIConstructScale, tile.scale + 0.01f),
+                () -> SendMessageToSetParam(MessageFerrisMisc.GUIConstructScale, tile.scale + 0.1f)
+        );
+        Canvas.MoveGroup(1, 7, 150, false);
+        Canvas.ActiveGroup(1);
     }
 
     private void SendMessageForIndex(int flag, int index)
     {
         MessageFerrisMisc packet = new MessageFerrisMisc(blockPosX, blockPosY, blockPosZ, flag, index, 0);
+        MFW_PacketHandler.INSTANCE.sendToServer(packet);
+    }
+
+    private void ChangeBodyGuide(boolean isOn, int idx)
+    {
+        int i = isOn ? idx : 0;
+        tile.BodyGuide = i;
+        SendMessageForIndex(GUIBodyGuide, i);
+    }
+
+    private void SendMessageToSetParam(int flag, float param)
+    {
+        IMessage packet = new MessageFerrisMisc(tile.xCoord, tile.yCoord, tile.zCoord, flag, 0, param);
         MFW_PacketHandler.INSTANCE.sendToServer(packet);
     }
 

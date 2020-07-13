@@ -87,12 +87,12 @@ public class GUIConnector extends GuiContainer {
                         t -> SendMessageToSetParam(MessageFerrisMisc.GuiConnectorWLength, Float.parseFloat(t))));
 
         GUIFerrisWheel.Scale(Canvas, fontRendererObj, 0, 75,
-                tile.wheel, wheelGroup, MessageFerrisMisc.GuiConnectorWScale,
+                tile.wheel, wheelGroup,
                 () -> String.format("%7.2f", tile.wheel.localScale),
                 t -> SendMessageToSetParam(MessageFerrisMisc.GuiConnectorWScale, t));
 
         GUIFerrisWheel.Rotate(Canvas, fontRendererObj, 0, 100, tile.wheel,
-                wheelGroup, MessageFerrisMisc.GuiConnectorWRotateX, MessageFerrisMisc.GuiConnectorWRotateY,
+                wheelGroup,
                 () -> String.format("%7.1f", tile.wheel.pitch),
                 t -> SendMessageToSetParam(MessageFerrisMisc.GuiConnectorWRotateX, t),
                 () -> String.format("%7.1f", tile.wheel.yaw),
@@ -100,7 +100,6 @@ public class GUIConnector extends GuiContainer {
 
         GUIFerrisWheel.Offset(Canvas, fontRendererObj, 0, 152, tile.wheel,
                 wheelGroup,
-                MessageFerrisMisc.GuiConnectorWOffsetX, MessageFerrisMisc.GuiConnectorWOffsetY, MessageFerrisMisc.GuiConnectorWOffsetZ,
                 () -> String.format("%7.2f", tile.wheel.offset.x),
                 t -> SendMessageToSetParam(MessageFerrisMisc.GuiConnectorWOffsetX, t),
                 () -> String.format("%7.2f", tile.wheel.offset.y),
@@ -137,12 +136,12 @@ public class GUIConnector extends GuiContainer {
 
 
         GUIFerrisWheel.Scale(Canvas, fontRendererObj, 0, 75, tile.elevator,
-                elevatorGroup, MessageFerrisMisc.GuiConnectorEScale,
+                elevatorGroup,
                 () -> String.format("%7.2f", tile.elevator.localScale),
                 t -> SendMessageToSetParam(MessageFerrisMisc.GuiConnectorEScale, t));
 
         GUIFerrisWheel.Rotate(Canvas, fontRendererObj, 0, 100, tile.elevator,
-                elevatorGroup, MessageFerrisMisc.GuiConnectorERotateX, MessageFerrisMisc.GuiConnectorERotateY,
+                elevatorGroup,
                 () -> String.format("%7.1f", tile.elevator.pitch),
                 t -> SendMessageToSetParam(MessageFerrisMisc.GuiConnectorERotateX, t),
                 () -> String.format("%7.1f", tile.elevator.yaw),
@@ -150,7 +149,6 @@ public class GUIConnector extends GuiContainer {
 
         GUIFerrisWheel.Offset(Canvas, fontRendererObj, 0, 152, tile.elevator,
                 elevatorGroup,
-                MessageFerrisMisc.GuiConnectorEOffsetX, MessageFerrisMisc.GuiConnectorEOffsetY, MessageFerrisMisc.GuiConnectorEOffsetZ,
                 () -> String.format("%7.2f", tile.elevator.offset.x),
                 t -> SendMessageToSetParam(MessageFerrisMisc.GuiConnectorEOffsetX, t),
                 () -> String.format("%7.2f", tile.elevator.offset.y),
@@ -241,8 +239,8 @@ public class GUIConnector extends GuiContainer {
                 centerW + width, centerH + 82,
                 0x88000000, 0x88000000);
 
-        this.drawGradientRect(centerW-width, centerH + 62,
-                centerW + width, centerH + 82,
+        this.drawGradientRect(centerW+width-2, centerH - 48,
+                centerW+width+18, centerH - 28,
                 0x88000000, 0x88000000);
     }
 

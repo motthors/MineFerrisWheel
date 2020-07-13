@@ -57,6 +57,8 @@ public class itemBlockFerrisCore extends ItemBlock implements IItemBlockModelHol
 		{
 			stack.stackSize--; // to consume itemstack if in creative mode
 			Logger.debugInfo("onItemUseFirst decr : " + stack.stackSize);
+			(new Throwable()).printStackTrace();
+
 		}
 		return false;
 	}
@@ -67,6 +69,7 @@ public class itemBlockFerrisCore extends ItemBlock implements IItemBlockModelHol
 	{
 		stack.stackSize++;
 		Logger.debugInfo("onItemUse : " + stack.stackSize);
+		(new Throwable()).printStackTrace();
 		return super.onItemUse(stack, player, world, x, y, z, side, hitX, hitY, hitZ);
 	}
 

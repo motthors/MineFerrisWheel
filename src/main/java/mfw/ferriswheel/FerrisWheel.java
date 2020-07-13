@@ -405,7 +405,8 @@ public class FerrisWheel extends FerrisPartBase implements IFerrisParamGetter {
         {
             if(isUpdatedRsPowerNow() == 1)storyboardManager.OnRSEnable();
             storyboardManager.Update();
-            rotAngle.roundNow();
+//            rotAngle.roundNow();
+            return;
         }
 
         rotSpeed *= (1f - rotResist);
@@ -424,6 +425,7 @@ public class FerrisWheel extends FerrisPartBase implements IFerrisParamGetter {
         else{
             rotAngle.add(rotSpeed);
             rotAngle.round();
+//            Logger.debugInfo(String.format("%06.2f : %06.2f", rotAngle.get(), rotAngle.getPrev()));
         }
     }
 

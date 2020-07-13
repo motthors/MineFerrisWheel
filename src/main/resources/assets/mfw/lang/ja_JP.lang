@@ -28,10 +28,13 @@ message.error.repos=有効期限が切れています
 gui.core.switch.changemode=回転モード切替
 gui.core.text.modename0=通常回転モード
 gui.core.text.modename1=振り子運動モード
-gui.core.text.modename2=往復移動モード
-gui.core.text.modename3=定量回転モード
-gui.core.text.modename4=ストーリーボード
-gui.core.text.modename100=同期モード
+gui.core.storyboard=ストーリーボード
+
+gui.core.story.preset=プリセット
+gui.core.story.preset.roundtrip=往復移動
+gui.core.story.preset.autoroundtrip=自動往復
+gui.core.story.preset.step=定量移動
+gui.core.story.preset.clock=時計
 
 gui.core.switch.rsmode=RS動作切り替え
 gui.core.switch.rsmode0=無効

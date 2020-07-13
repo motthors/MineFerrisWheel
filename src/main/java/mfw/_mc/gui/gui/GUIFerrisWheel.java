@@ -26,7 +26,6 @@ public class GUIFerrisWheel extends GUIFerrisCoreBase {
 		this.wheel = wheel;
 	}
 
-    private int gDef = -1;
     private int ButtonGroup_Main = 0;
     private int ButtonGroup_Accel = 1;
     private int ButtonGroup_AmpPhase = 2;
@@ -42,6 +41,7 @@ public class GUIFerrisWheel extends GUIFerrisCoreBase {
     @Override
     public void initGui()
     {
+        int gDef = -1;
         super.initGui();
 
         Canvas.Register(gDef, new GuiButtonWrapper(0, width - 48, 84, 42, 14, "reset",
@@ -75,19 +75,17 @@ public class GUIFerrisWheel extends GUIFerrisCoreBase {
 
 
         Scale(Canvas, fontRendererObj, width - 70, 3,
-                wheel, gDef,-1,
+                wheel, gDef,
                 () -> String.format("%4.1f", wheel.localScale),
                 t -> SendMessageToSetParam(MessageFerrisMisc.GUICoreSetSize, t));
 
-        Rotate(Canvas, fontRendererObj, width - 70, 25,
-                wheel, gDef, MessageFerrisMisc.GUICoreRot1, MessageFerrisMisc.GUICoreRot2,
+        Rotate(Canvas, fontRendererObj, width - 70, 25, wheel, gDef,
                 () -> String.format("%4.1f", wheel.pitch),
                 t -> SendMessageToSetParam(MessageFerrisMisc.GUICoreSetSetPitch, t),
                 () -> String.format("%4.1f", wheel.yaw),
                 t -> SendMessageToSetParam(MessageFerrisMisc.GUICoreSetSetYaw, t));
 
-        Offset(Canvas, fontRendererObj, width - 70, 134,
-                wheel, gDef, GUICoreOffsetX, GUICoreOffsetY, GUICoreOffsetZ,
+        Offset(Canvas, fontRendererObj, width - 70, 134, wheel, gDef,
                 () -> String.format("%4.2f", wheel.offset.x),
                 v -> SendMessageToSetParam(MessageFerrisMisc.GUICoreOffsetX, v),
                 () -> String.format("%4.2f", wheel.offset.y),
@@ -187,7 +185,6 @@ public class GUIFerrisWheel extends GUIFerrisCoreBase {
                         }));
 
 
-        //postinit
         if(wheel.isEnableSync) ChangeUIForSync();
         else if(wheel.isEnableStoryBoard) ChangeUIForStoryboard();
         else if(wheel.isEnableSinConvert) ChangeUIForPendium();
@@ -200,7 +197,7 @@ public class GUIFerrisWheel extends GUIFerrisCoreBase {
     public static void Scale(GuiGroupCanvas Canvas, FontRenderer fontRenderer,
                              int offsetX, int offsetY,
                              IFerrisParamGetter model,
-                             int groupId, int MessageId,
+                             int groupId,
                              Supplier<String> updateText, Consumer<Float> confirmed)
     {
         Canvas.Register(groupId, new GuiLabel("scale :", fontRenderer, offsetX - 5, offsetY, 0xffffff));
@@ -211,7 +208,7 @@ public class GUIFerrisWheel extends GUIFerrisCoreBase {
                         s -> s.matches(GuiFormatedTextField.regexNumber),
                         (v) -> confirmed.accept(Float.parseFloat(v))));
 
-        GuiUtil.addButton4(Canvas, groupId, offsetX, offsetY + 9, "Size", MessageId,
+        GuiUtil.addButton4(Canvas, groupId, offsetX, offsetY + 9,
                 () -> confirmed.accept(model.GetLocalScale()-0.1f),
                 () -> confirmed.accept(model.GetLocalScale()-0.01f),
                 () -> confirmed.accept(model.GetLocalScale()+0.01f),
@@ -221,7 +218,7 @@ public class GUIFerrisWheel extends GUIFerrisCoreBase {
     public static void Rotate(GuiGroupCanvas Canvas, FontRenderer fontRenderer,
                               int offsetX, int offsetY,
                               IFerrisParamGetter model,
-                              int groupId, int MessageId_Rot1, int MessageId_Rot2,
+                              int groupId,
                               Supplier<String> updateTextPitch, Consumer<Float> confirmedPitch,
                               Supplier<String> updateTextYaw, Consumer<Float> confirmedYaw)
     {
@@ -239,13 +236,13 @@ public class GUIFerrisWheel extends GUIFerrisCoreBase {
                         s -> s.matches(GuiFormatedTextField.regexNumber),
                         (t) ->  confirmedYaw.accept(Float.parseFloat(t))));
 
-        GuiUtil.addButton4(Canvas, groupId,offsetX, offsetY + 9, "Rot1", MessageId_Rot1,
+        GuiUtil.addButton4(Canvas, groupId,offsetX, offsetY + 9,
                 () -> confirmedPitch.accept(model.GetPitch()-10f),
                 () -> confirmedPitch.accept(model.GetPitch()-1f),
                 () -> confirmedPitch.accept(model.GetPitch()+1f),
                 () -> confirmedPitch.accept(model.GetPitch()+10f)
         );
-        GuiUtil.addButton4(Canvas, groupId,offsetX, offsetY + 29, "Rot2", MessageId_Rot2,
+        GuiUtil.addButton4(Canvas, groupId,offsetX, offsetY + 29,
                 () -> confirmedYaw.accept(model.GetYaw()-10f),
                 () -> confirmedYaw.accept(model.GetYaw()-1f),
                 () -> confirmedYaw.accept(model.GetYaw()+1f),
@@ -256,7 +253,7 @@ public class GUIFerrisWheel extends GUIFerrisCoreBase {
     public static void Offset(GuiGroupCanvas Canvas, FontRenderer fontRenderer,
                               int offsetX, int offsetY,
                               IFerrisParamGetter model,
-                              int groupId, int MessageId_OffsetX, int MessageId_OffsetY, int MessageId_OffsetZ,
+                              int groupId,
                               Supplier<String> updateTextX, Consumer<Float> confirmedX,
                               Supplier<String> updateTextY, Consumer<Float> confirmedY,
                               Supplier<String> updateTextZ, Consumer<Float> confirmedZ)
@@ -281,19 +278,19 @@ public class GUIFerrisWheel extends GUIFerrisCoreBase {
                         s -> s.matches(GuiFormatedTextField.regexNumber),
                         t -> confirmedZ.accept(Float.parseFloat(t))));
 
-        GuiUtil.addButton4(Canvas, groupId,offsetX, offsetY + 8, "Offset X", MessageId_OffsetX,
+        GuiUtil.addButton4(Canvas, groupId,offsetX, offsetY + 8,
                 () -> confirmedX.accept((float)model.GetOffset().x-1f),
                 () -> confirmedX.accept((float)model.GetOffset().x-0.1f),
                 () -> confirmedX.accept((float)model.GetOffset().x+0.1f),
                 () -> confirmedX.accept((float)model.GetOffset().x+1f)
         );
-        GuiUtil.addButton4(Canvas, groupId,offsetX, offsetY + 28, "Offset Y", MessageId_OffsetY,
+        GuiUtil.addButton4(Canvas, groupId,offsetX, offsetY + 28,
                 () -> confirmedY.accept((float)model.GetOffset().y-1f),
                 () -> confirmedY.accept((float)model.GetOffset().y-0.1f),
                 () -> confirmedY.accept((float)model.GetOffset().y+0.1f),
                 () -> confirmedY.accept((float)model.GetOffset().y+1f)
         );
-        GuiUtil.addButton4(Canvas, groupId,offsetX, offsetY + 48, "Offset Z", MessageId_OffsetZ,
+        GuiUtil.addButton4(Canvas, groupId,offsetX, offsetY + 48,
                 () -> confirmedZ.accept((float)model.GetOffset().z-1f),
                 () -> confirmedZ.accept((float)model.GetOffset().z-0.1f),
                 () -> confirmedZ.accept((float)model.GetOffset().z+0.1f),
@@ -344,7 +341,7 @@ public class GUIFerrisWheel extends GUIFerrisCoreBase {
     static void Regist(GuiGroupCanvas Canvas, FontRenderer fontRenderer, int groupId, int width, int height, IFerrisParamGetter model,
                        Supplier<String> updateText, Consumer<Float> confirmed)
     {
-        GuiUtil.addButton4(Canvas, groupId, 242, height-30, "Resist", -1,
+        GuiUtil.addButton4(Canvas, groupId, 242, height-30,
                 () -> confirmed.accept(model.GetRegist() * 1.1f),
                 () -> confirmed.accept(model.GetRegist() * 1.01f),
                 () -> confirmed.accept(model.GetRegist() / 1.01f),

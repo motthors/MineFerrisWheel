@@ -32,6 +32,12 @@ gui.core.text.modename3=Step Rotation
 gui.core.text.modename4=Story Board
 gui.core.text.modename100=Synchronism Mode
 
+gui.core.story.preset=Preset
+gui.core.story.preset.roundtrip=Round Trip
+gui.core.story.preset.autoroundtrip=Round Trip(Auto)
+gui.core.story.preset.step=Step by step
+gui.core.story.preset.clock=Clock
+
 gui.core.switch.rsmode=RS Mode
 gui.core.switch.rsmode0=Non
 gui.core.switch.rsmode1=Stop When On

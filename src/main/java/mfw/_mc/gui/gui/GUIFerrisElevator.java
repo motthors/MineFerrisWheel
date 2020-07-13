@@ -45,18 +45,17 @@ public class GUIFerrisElevator extends GUIFerrisCoreBase {
 
 		int gDef = -1;
 
-        GUIFerrisWheel.Scale(Canvas, fontRendererObj, width-70, 0, elevator, gDef,-1,
+        GUIFerrisWheel.Scale(Canvas, fontRendererObj, width-70, 0, elevator, gDef,
                 () -> String.format("%4.1f", elevator.localScale),
                 t -> SendMessageToSetParam(MessageFerrisMisc.GUICoreSetSize, t));
 
-        GUIFerrisWheel.Rotate(Canvas, fontRendererObj, width-70, 0, elevator, gDef, MessageFerrisMisc.GUICoreRot1, MessageFerrisMisc.GUICoreRot2,
+        GUIFerrisWheel.Rotate(Canvas, fontRendererObj, width-70, 0, elevator, gDef,
                 () -> String.format("%4.1f", elevator.pitch),
                 t -> SendMessageToSetParam(MessageFerrisMisc.GUICoreSetSetPitch, t),
                 () -> String.format("%4.1f", elevator.yaw),
                 t -> SendMessageToSetParam(MessageFerrisMisc.GUICoreSetSetYaw, t));
 
-        GUIFerrisWheel.Offset(Canvas, fontRendererObj, width-70, 0, elevator,
-                gDef, MessageFerrisMisc.GUICoreOffsetX, MessageFerrisMisc.GUICoreOffsetY, MessageFerrisMisc.GUICoreOffsetZ,
+        GUIFerrisWheel.Offset(Canvas, fontRendererObj, width-70, 0, elevator, gDef,
                 () -> String.format("%4.2f", elevator.offset.x),
                 v -> SendMessageToSetParam(MessageFerrisMisc.GUICoreOffsetX, v),
                 () -> String.format("%4.2f", elevator.offset.y),
@@ -64,8 +63,7 @@ public class GUIFerrisElevator extends GUIFerrisCoreBase {
                 () -> String.format("%4.2f", elevator.offset.z),
                 v -> SendMessageToSetParam(MessageFerrisMisc.GUICoreOffsetZ, v));
 
-        GUIFerrisWheel.Offset(Canvas, fontRendererObj, width-70, 0, elevator,
-                gDef, MessageFerrisMisc.GUICoreOffsetX, MessageFerrisMisc.GUICoreOffsetY, MessageFerrisMisc.GUICoreOffsetZ,
+        GUIFerrisWheel.Offset(Canvas, fontRendererObj, width-70, 0, elevator, gDef,
                 () -> String.format("%4.2f", elevator.offset.x),
                 v -> SendMessageToSetParam(MessageFerrisMisc.GUICoreOffsetX, v),
                 () -> String.format("%4.2f", elevator.offset.y),

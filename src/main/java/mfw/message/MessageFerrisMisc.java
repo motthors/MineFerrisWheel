@@ -10,6 +10,7 @@ import mfw._mc.gui.container.ContainerFerrisCore;
 import mfw._mc.tileEntity.*;
 import mfw._mc.tileEntity.TileEntityFerrisCore;
 import mfw.storyboard.StoryBoardManager;
+import mochisystems._core.Logger;
 import mochisystems._mc.tileentity.TileEntityBlocksScannerBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -26,7 +27,10 @@ public class MessageFerrisMisc implements IMessage, IMessageHandler<MessageFerri
 	public static final int GUIDrawEntityFlag = 7;
     public static final int GUICopyModeChange = 8;
     public static final int GUIToggleCoreIsConnector = 9;
-    public static final int GUIOddFlag = 10;
+	public static final int GUIOddFlag = 10;
+	public static final int GUIBodyGuide = 11;
+	public static final int GUIConstructScale = 12;
+	public static final int GUITrueCopy = 13;
 
 	public static final int GUIBConstruct = 50;
 //	public static final int GUIBConstructSendTagArray = 54;
@@ -240,6 +244,16 @@ public class MessageFerrisMisc implements IMessage, IMessageHandler<MessageFerri
         case GUIToggleCoreIsConnector:
             ((TileEntityBlocksScannerBase) tile).toggleFlagCoreIsConnector();
             break;
+		case GUIBodyGuide:
+			((TileEntityBlocksScannerBase) tile).setBodyGuide(message.MiscInt);
+			break;
+		case GUIConstructScale:
+			((TileEntityBlocksScannerBase) tile).setScale(message.MiscFloat);
+			break;
+		case GUITrueCopy:
+			((TileEntityBlocksScannerBase) tile).toggleFlagTrueCopy();
+			break;
+
             //////////////////////////////// GUI BasketConstruct ////////////////////////////////
 //    	case GUIBConstruct: ��������Ȃ�
 //    		if(!((FerrisBasketConstructor) tile).isExistBasket(player))break;
