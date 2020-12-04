@@ -1,9 +1,8 @@
 package mfw.util;
 
-import mfw._core.MFW_Core;
-import mfw.ferriswheel.FerrisWheel;
+import mfw._mc._1_7_10._core.MFW_Core;
 import mochisystems.math.Vec3d;
-import mochisystems.blockcopier.MTYBlockAccess;
+import mochisystems._mc._1_7_10.world.MTYBlockAccess;
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
 

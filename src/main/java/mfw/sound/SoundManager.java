@@ -11,7 +11,6 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -19,12 +18,11 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import cpw.mods.fml.common.ObfuscationReflectionHelper;
-import mfw._core.MFW_Core;
+import mfw._mc._1_7_10._core.MFW_Core;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.audio.SoundList;
 import net.minecraft.client.audio.SoundListSerializer;
-import net.minecraft.client.resources.IResourcePack;
 import net.minecraft.client.resources.SimpleReloadableResourceManager;
 import net.minecraft.util.ResourceLocation;
 

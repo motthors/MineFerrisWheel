@@ -15,7 +15,6 @@ import mfw.storyboard.programpanel.SetValuePanel;
 import mfw.storyboard.programpanel.SoundPanel;
 import mfw.storyboard.programpanel.TimerPanel;
 import mfw.storyboard.programpanel.WaitPanel;
-import mochisystems._core.Logger;
 
 public class StoryBoardManager {
 

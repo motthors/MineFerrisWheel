@@ -2,14 +2,13 @@ package mfw.ferriswheel;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import mfw._mc.gui.gui.GUIFerrisCoreBase;
-import mochisystems._core.Logger;
+import mfw._mc._1_7_10.gui.gui.GUIFerrisCoreBase;
 import mochisystems.util.IModel;
 import mochisystems.blockcopier.IItemBlockModelHolder;
 import mochisystems.util.IModelController;
 import mochisystems.util.InterpolationTick;
 import mfw.storyboard.StoryBoardManager;
-import mochisystems.handler.TickEventHandler;
+import mochisystems._mc._1_7_10.eventhandler.TickEventHandler;
 import mochisystems.math.Math;
 import mochisystems.math.Quaternion;
 import mochisystems.math.Vec3d;

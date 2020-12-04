@@ -1,6 +1,6 @@
 package mfw.renderer;
 
-import mfw._mc.tileEntity.TileEntityFerrisCore;
+import mfw._mc._1_7_10.tileEntity.TileEntityFerrisCore;
 import org.lwjgl.opengl.GL11;
 
 import mfw.asm.renderPass1Hook;

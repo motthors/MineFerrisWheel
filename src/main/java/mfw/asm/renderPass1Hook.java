@@ -2,7 +2,7 @@ package mfw.asm;
 
 import java.util.ArrayDeque;
 
-import mfw._mc.tileEntity.TileEntityFerrisCore;
+import mfw._mc._1_7_10.tileEntity.TileEntityFerrisCore;
 import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.Minecraft;

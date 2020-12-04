@@ -1,8 +1,7 @@
 package mfw.storyboard.programpanel;
 
-import mfw._core.MFW_Core;
+import mfw._mc._1_7_10._core.MFW_Core;
 import mfw.ferriswheel.FerrisPartBase;
-import mfw.ferriswheel.FerrisWheel;
 import mfw.sound.SoundManager;
 import mochisystems.math.Vec3d;
 import net.minecraft.util.MathHelper;
@@ -143,7 +142,7 @@ public class SoundPanel implements IProgramPanel {
 		case 0: //once
             Vec3d p = part.connectorFromParent.Current();
 			String domain = MFW_Core.MODID+":"+SoundManager.getSoundDomain(soundIndex);
-			mochisystems._core._Core.proxy.PlaySoundOnce(p.x+0.5, p.y+0.5, p.z+0.5, domain, 1.0F, 0.9F);
+			mochisystems._mc._1_7_10._core._Core.proxy.PlaySoundOnce(p.x+0.5, p.y+0.5, p.z+0.5, domain, 1.0F, 0.9F);
 			break;
 		case 1: // continue
 			part.soundManager.SetSoundIndex(soundIndex);

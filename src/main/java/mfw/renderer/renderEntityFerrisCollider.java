@@ -1,6 +1,6 @@
 package mfw.renderer;
 
-import mfw._mc.entity.EntityFerrisCollider;
+import mfw._mc._1_7_10.entity.EntityFerrisCollider;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderEntity;
 import net.minecraft.entity.Entity;

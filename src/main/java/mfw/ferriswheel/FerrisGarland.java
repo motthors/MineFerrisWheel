@@ -2,10 +2,9 @@ package mfw.ferriswheel;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import mfw._mc.gui.gui.GUIFerrisCoreBase;
-import mfw._mc.gui.gui.GUIFerrisGarland;
+import mfw._mc._1_7_10.gui.gui.GUIFerrisCoreBase;
+import mfw._mc._1_7_10.gui.gui.GUIFerrisGarland;
 import mfw.renderer.FerrisCoreRenderer;
-import mochisystems._core.Logger;
 import mochisystems.math.Math;
 import mochisystems.math.Quaternion;
 import mochisystems.math.Vec3d;

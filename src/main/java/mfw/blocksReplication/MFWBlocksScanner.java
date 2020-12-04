@@ -1,13 +1,12 @@
 package mfw.blocksReplication;
 
-import mfw._mc.block.*;
-import mfw._mc.tileEntity.TileEntityFerrisConstructor;
-import mfw._mc.tileEntity.TileEntityConnector;
-import mochisystems._mc.block.BlockRemoteController;
-import mochisystems._mc.tileentity.TileEntityBlocksScannerBase;
+import mfw._mc._1_7_10.block.*;
+import mfw._mc._1_7_10.tileEntity.TileEntityFerrisConstructor;
+import mfw._mc._1_7_10.tileEntity.TileEntityConnector;
+import mochisystems._mc._1_7_10.block.BlockRemoteController;
+import mochisystems._mc._1_7_10.tileentity.TileEntityBlocksScannerBase;
 import mochisystems.blockcopier.BlocksScanner;
 import mochisystems.blockcopier.IBLockCopyHandler;
-import mochisystems.blockcopier.IItemBlockModelHolder;
 import mochisystems.math.Vec3d;
 import mochisystems.util.IModel;
 import net.minecraft.block.Block;

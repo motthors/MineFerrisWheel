@@ -1,7 +1,7 @@
 //package mfw.ferriswheel;
 //
 //import mochisystems.blockcopier.IModelCollider;
-//import mochisystems.blockcopier.MTYBlockAccess;
+//import mochisystems._mc._1_7_10.world.MTYBlockAccess;
 //import mochisystems.util.IModelController;
 //
 //public interface IBlockModelController extends IModelController {

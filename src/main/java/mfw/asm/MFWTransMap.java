@@ -1,6 +1,6 @@
 package mfw.asm;
 
-import mochisystems.easyasm.*;
+import mochisystems._mc._1_7_10.easyasm.*;
 import net.minecraft.launchwrapper.LaunchClassLoader;
 
 public class MFWTransMap extends EasyAsm{

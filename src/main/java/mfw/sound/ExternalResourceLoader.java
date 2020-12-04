@@ -10,8 +10,6 @@ import java.util.Set;
 
 import com.google.common.collect.ImmutableSet;
 
-import mfw._core.MFW_Logger;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.IResourcePack;
 import net.minecraft.client.resources.data.IMetadataSection;
 import net.minecraft.client.resources.data.IMetadataSerializer;

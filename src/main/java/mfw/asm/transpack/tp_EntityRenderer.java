@@ -108,7 +108,7 @@ public class tp_EntityRenderer extends TransPack {
 					{
 //						FMLRelaunchLog.info("TransformLog : OK");
 						MethodCount += 1;
-						mv.visitFieldInsn(Opcodes.GETSTATIC, "mfw/_core/MFW_Command", "renderDistRatio", "F");
+						mv.visitFieldInsn(Opcodes.GETSTATIC, "mfw/_mc/_1_7_10/_core/MFW_Command", "renderDistRatio", "F");
 						mv.visitInsn(Opcodes.FMUL);
 	//					FMLRelaunchLog.info("MFWTransformLog : renderdist : visitFieldInsn : transform renderdist");
 					}

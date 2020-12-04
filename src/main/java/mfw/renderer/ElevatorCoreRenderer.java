@@ -1,6 +1,6 @@
 package mfw.renderer;
 
-import mochisystems.bufferedrenderer.IBufferedRenderer;
+import mochisystems._mc._1_7_10.bufferedrenderer.IBufferedRenderer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.IIcon;

@@ -1,3 +1,3 @@
 Manifest-Version: 1.0
 FMLCorePlugin: mfw.asm.loadingPlugin
-FMLCorePluginContainsFMLMod: mfw._core.MFW_Core
+FMLCorePluginContainsFMLMod: mfw._mc._1_7_10._core.MFW_Core

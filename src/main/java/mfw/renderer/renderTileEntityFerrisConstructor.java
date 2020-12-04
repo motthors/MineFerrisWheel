@@ -2,23 +2,13 @@ package mfw.renderer;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import mochisystems._core._Core;
-import mochisystems._mc.renderer.renderTileEntityLimitFrame;
-import mochisystems._mc.tileentity.TileEntityBlocksScannerBase;
-import mochisystems.blockcopier.ILimitLine;
+import mochisystems._mc._1_7_10.renderer.renderTileEntityLimitFrame;
+import mochisystems._mc._1_7_10.tileentity.TileEntityBlocksScannerBase;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.RenderBiped;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderPlayer;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)

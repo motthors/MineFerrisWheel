@@ -1,7 +1,7 @@
 package mfw.ferriswheel;
 
 import cpw.mods.fml.common.FMLCommonHandler;
-import mfw._core.MFW_Core;
+import mfw._mc._1_7_10._core.MFW_Core;
 import mfw.sound.FerrisFrameSound;
 import mfw.sound.SoundManager;
 
@@ -33,7 +33,7 @@ public class FerrisSound {
                         part.controller.CorePosZ(),
                         MFW_Core.proxy.getClientPlayer(), SoundManager.soundDomain+":"+domain);
                 this.sound = sound;
-                mochisystems._core._Core.proxy.PlayContinuousSound(sound);
+                mochisystems._mc._1_7_10._core._Core.proxy.PlayContinuousSound(sound);
 //				MFW_Logger.debugInfo("soundManager register "+domain);
             }
         }

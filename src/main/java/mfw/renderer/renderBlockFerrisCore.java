@@ -1,7 +1,7 @@
 package mfw.renderer;
 
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
-import mfw._core.MFW_Core;
+import mfw._mc._1_7_10._core.MFW_Core;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.world.IBlockAccess;

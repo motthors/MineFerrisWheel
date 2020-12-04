@@ -1,15 +1,10 @@
 package mfw.storyboard.programpanel;
 
-import java.awt.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import com.sun.javaws.exceptions.InvalidArgumentException;
-import javafx.animation.KeyFrame;
 import mfw.ferriswheel.FerrisPartBase;
 import mfw.ferriswheel.IFerrisParamGetter;
-import mochisystems._core.Logger;
 import net.minecraft.util.MathHelper;
 
 public class KeyFramePanel implements IProgramPanel {

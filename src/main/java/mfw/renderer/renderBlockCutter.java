@@ -5,7 +5,7 @@ import org.lwjgl.opengl.GL11;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import mfw._core.MFW_Core;
+import mfw._mc._1_7_10._core.MFW_Core;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
@@ -84,7 +84,7 @@ public class renderBlockCutter  implements ISimpleBlockRenderingHandler{
 		}
 	}
 	
-	//ƒ[ƒ‹ƒh‚Å‚ÌƒŒƒ“ƒ_[
+	//ï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½hï¿½Å‚Ìƒï¿½ï¿½ï¿½ï¿½_ï¿½[
 	@Override
 	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer)
 	{

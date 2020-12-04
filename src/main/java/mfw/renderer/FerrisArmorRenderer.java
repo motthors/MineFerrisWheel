@@ -3,7 +3,7 @@ package mfw.renderer;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import mfw._mc.item.itemBlockFerrisCore;
+import mfw._mc._1_7_10.item.itemBlockFerrisCore;
 import mochisystems.manager.EntityWearingModelManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
