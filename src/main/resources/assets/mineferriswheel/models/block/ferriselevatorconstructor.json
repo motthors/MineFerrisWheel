@@ -1,0 +1,8 @@
+{
+    "parent": "block/orientable",
+    "textures": {
+        "top": "mineferriswheel:blocks/elevator_top",
+        "front": "mineferriswheel:blocks/elevator_front",
+        "side": "mineferriswheel:blocks/elevator_side"
+    }
+}

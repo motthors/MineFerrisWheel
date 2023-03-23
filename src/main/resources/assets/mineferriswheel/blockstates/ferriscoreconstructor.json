@@ -1,0 +1,10 @@
+{
+	"variants": {
+		"facing=down":  { "model": "mineferriswheel:ferriscoreconstructor", "x": 180 },
+		"facing=up":    { "model": "mineferriswheel:ferriscoreconstructor" },
+		"facing=north": { "model": "mineferriswheel:ferriscoreconstructor", "x": 90 },
+		"facing=south": { "model": "mineferriswheel:ferriscoreconstructor", "x": 270 },
+		"facing=west":  { "model": "mineferriswheel:ferriscoreconstructor", "x": 90, "y": -90 },
+		"facing=east":  { "model": "mineferriswheel:ferriscoreconstructor", "x": 90, "y": 90 }
+	}
+}

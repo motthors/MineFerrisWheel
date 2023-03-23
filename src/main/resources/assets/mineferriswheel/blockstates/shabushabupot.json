@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "is_fill=false,is_hot=false": { "model": "mineferriswheel:pot_empty" },
+        "is_fill=false,is_hot=true": { "model": "mineferriswheel:pot_empty" },
+        "is_fill=true,is_hot=false": { "model": "mineferriswheel:pot_fill" },
+        "is_fill=true,is_hot=true": { "model": "mineferriswheel:pot_hot" }
+    }
+}

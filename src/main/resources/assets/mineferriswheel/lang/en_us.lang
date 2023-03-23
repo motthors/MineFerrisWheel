@@ -1,0 +1,87 @@
+tile.FerrisCore Constructor.name=Work Table for Ferris Wheel Frame
+tile.Elevator Constructor.name=Work Table for Ferris Wheel Basket
+tile.Connector.name=Connector Block
+
+tile.FerrisCore.name=Wheel Core
+tile.Elevator.name=Elevator Core
+
+item.itemFerrisGarlandSeed.name=Garland
+tile.Garland.name=Garland Origin
+tile.GarlandEnd.name=Garland End
+
+tile.FerrisSupporter.name=Supporter Block
+tile.Seat Marker.name=Seat Marker
+
+item.ItemFerrisSeed.name=Ferris Wheel Seed
+
+message.construct.connector_only1=Failure : There is not a connector, or there is too many it.
+message.fileread.error=File not read.
+message.command.sync.true=Enable angle synchronization from the server. 
+message.command.sync.false=Disable angle synchronization from the server.
+message.command.renderdist=Render distance magnification is changed.
+message.coreGUI.sync.cannotregisttoparent=Can't be synchronize the wheel of the parent of the synchronization turn.
+
+message.error.repos=no longer valid
+
+gui.core.text.layer=Layer
+gui.core.text.back=back
+gui.core.text.unlock=lock
+gui.core.text.lock=locked
+gui.core.text.collider=collider
+gui.core.text.core=<>
+gui.core.text.model=Model
+gui.core.text.hanging=hanging
+gui.core.text.reverse=Reverse
+gui.core.text.marking=marking
+gui.core.text.sync.register=sync with marked
+gui.core.text.sync.clear=clear
+
+gui.scan.text.sync.rotate_copy=Rotated Copy
+gui.scan.text.sync.axis=Axis of rot
+gui.scan.text.body_guide=Body guide
+
+gui.core.storyboard=StoryBoard
+
+gui.core.story.preset=Preset
+gui.core.story.preset.roundtrip=Round Trip
+gui.core.story.preset.autoroundtrip=Round Trip(Auto)
+gui.core.story.preset.step=Step by step
+gui.core.story.preset.clock=Clock
+gui.core.story.preset.loop=Repetition
+
+gui.core.switch.rsmode=RS Mode
+gui.core.switch.rsmode0=Non
+gui.core.switch.rsmode1=Stop When On
+gui.core.switch.rsmode2=Run When On
+gui.core.switch.rsmode3=Ratio Positive
+gui.core.switch.rsmode4=Ratio Negative
+
+gui.core.switch.syncmode=Sync Mode
+gui.core.text.sync.copymode=Copy action
+gui.core.text.sync.copymode.relative=relative
+gui.core.text.sync.copymode.absolute=absolute
+
+
+gui.core.isEnableStoryBoard=StoryBoard
+gui.core.isEnableSinConvert=Pendulum
+
+gui.core.isEnableSyncTarget=Sync Target
+gui.core.SyncTarget.rot=Rotation
+gui.core.SyncTarget.speed=Speed
+
+gui.core.Sync.ParentUnregistered=Unregistered
+gui.core.Sync.Parentregistered=Registered
+
+tile.ShabuShabu Pot.name=SHABUSHABU NABE
+item.ItemSliceBeef.name=Slice Beef
+item.ItemSlicePork.name=Slice Pork
+item.ItemSliceChicken.name=Slice Chicken
+item.ItemShabuBeef.name=SHABUSHABU BEEF
+item.ItemShabuPork.name=SHABUSHABU PORK
+item.ItemShabuChicken.name=SHABUSHABU CHICKEN
+
+
+usage.garland.seed=[Usage]\ Sneak＋right click to open window\ Enter the ID to snap the item\ *When placed, those with the same ID will be connected.
+usage.garland=[Usage]\ Use it like a Ferris wheel frame or an elevator. \ When two garlands with the same ID are placed \ they create a connection point between them.
+usage.ferrisconstruct=place to use. It can be placed in 6 directions like a log block. A model that rotates clockwise with respect to the placed orientation is generated.
+

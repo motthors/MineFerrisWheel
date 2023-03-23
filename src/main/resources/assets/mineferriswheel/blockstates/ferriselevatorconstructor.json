@@ -1,0 +1,8 @@
+{
+	"variants": {
+		"facing=north": { "model": "mineferriswheel:ferriselevatorconstructor"},
+		"facing=south": { "model": "mineferriswheel:ferriselevatorconstructor", "y": 180 },
+		"facing=west":  { "model": "mineferriswheel:ferriselevatorconstructor", "y": 270 },
+		"facing=east":  { "model": "mineferriswheel:ferriselevatorconstructor", "y": 90 }
+	}
+}

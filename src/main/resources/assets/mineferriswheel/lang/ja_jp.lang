@@ -1,0 +1,85 @@
+tile.FerrisCore Constructor.name=観覧車フレーム用工作台
+tile.Elevator Constructor.name=観覧車バスケット用工作台
+tile.Connector.name=接続ブロック
+
+tile.FerrisCore.name=観覧車フレームコア
+tile.Elevator.name=エレベータフレームコア
+
+item.itemFerrisGarlandSeed.name=ガーランド
+tile.Garland.name=ガーランド開始点
+tile.GarlandEnd.name=ガーランド終点
+
+tile.FerrisSupporter.name=サポーターブロック
+tile.FerrisSeatToSit.name=シート位置指定ブロック
+
+item.ItemFerrisSeed.name=観覧車のタネ
+
+message.construct.connector_only1=エラー：接続ブロックが無い、または多すぎます。
+message.fileread.error=指定のファイルは読み込めませんでした。
+message.command.sync.true=サーバーとの角度同期を 有効 にしました。
+message.command.sync.false=サーバーとの角度同期を 無効 にしました。
+message.command.renderdist=描画距離倍率を変更しました。
+message.coreGUI.sync.cannotregisttoparent=同期回転の親になっているフレームを同期の子にはできません。
+
+message.error.repos=有効期限が切れています
+
+gui.core.text.layer=階層
+gui.core.text.back=戻る
+gui.core.text.unlock=ロック
+gui.core.text.lock=ロック中
+gui.core.text.collider=当たり判定
+gui.core.text.core=<>
+gui.core.text.model=モデル
+gui.core.text.hanging=吊り下げ
+gui.core.text.reverse=逆回転
+gui.core.text.marking=同期元登録
+gui.core.text.sync.register=登録済と同期
+gui.core.text.sync.clear=同期解除
+
+gui.scan.text.sync.rotate_copy=回転コピー
+gui.scan.text.sync.axis=回転軸 位置
+gui.scan.text.body_guide=ボディガイド
+
+gui.core.storyboard=StoryBoard
+
+gui.core.story.preset=プリセット
+gui.core.story.preset.roundtrip=往復
+gui.core.story.preset.autoroundtrip=自動往復
+gui.core.story.preset.step=定量移動
+gui.core.story.preset.clock=時計
+gui.core.story.preset.loop=繰り返し
+
+gui.core.switch.rsmode=RS動作切り替え
+gui.core.switch.rsmode0=無効
+gui.core.switch.rsmode1=ON時停止
+gui.core.switch.rsmode2=ON時動作
+gui.core.switch.rsmode3=倍率補正
+gui.core.switch.rsmode4=逆倍率補正
+
+gui.core.switch.syncmode=同期モード切替
+gui.core.text.sync.copymode=コピー時動作
+gui.core.text.sync.copymode.relative=相対
+gui.core.text.sync.copymode.absolute=絶対
+
+gui.core.isEnableStoryBoard=ｽﾄｰﾘｰﾎﾞｰﾄﾞ制御
+gui.core.isEnableSinConvert=振り子運動制御
+
+gui.core.isEnableSyncTarget=同期制御
+gui.core.SyncTarget.rot=角度
+gui.core.SyncTarget.speed=速さ
+
+gui.core.Sync.ParentUnregistered=未登録
+gui.core.Sync.Parentregistered=登録済
+
+tile.ShabuShabu Pot.name=SYABUSYABU鍋
+item.ItemSliceBeef.name=スライス牛肉
+item.ItemSlicePork.name=スライス豚肉
+item.ItemSliceChicken.name=スライス鳥肉
+item.ItemShabuBeef.name=SYABUSYABU牛肉
+item.ItemShabuPork.name=SYABUSYABU豚肉
+item.ItemShabuChicken.name=SYABUSYABU鳥肉
+
+
+usage.garland.seed=[使い方]\ スニーク＋右クリックでメニューを開く\ IDを入力してアイテムを割る\ ※設置したときに、IDが同じものが接続されます
+usage.garland=[使い方]\ 観覧車フレーム、エレベータと同じように使います。\ 同じIDを持ったガーランドが2つ設置されると、\ その2点間に接続ポイントを生成します。
+usage.ferrisconstruct=設置して使います。原木ブロックのように6方向に設置できます。設置した向きに対して時計回りするモデルが生成されます。

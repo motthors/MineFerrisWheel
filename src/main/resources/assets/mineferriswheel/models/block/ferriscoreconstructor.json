@@ -1,0 +1,12 @@
+{
+    "parent": "block/cube",
+    "textures": {
+        "particle": "mineferriswheel:blocks/ferrisconstructor",
+        "down": "mineferriswheel:blocks/ferrisconstructor_b",
+        "up": "mineferriswheel:blocks/ferrisconstructor",
+        "north": "mineferriswheel:blocks/ferrisconstructor_s",
+        "east": "mineferriswheel:blocks/ferrisconstructor_s",
+        "south": "mineferriswheel:blocks/ferrisconstructor_s",
+        "west": "mineferriswheel:blocks/ferrisconstructor_s"
+    }
+}

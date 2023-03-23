@@ -1,0 +1,9 @@
+{
+    "variants": {
+        "normal": {"model": "mineferriswheel:seat_0"},
+        "facing=north": { "model": "mineferriswheel:seat_0", "y": 180 },
+        "facing=south": { "model": "mineferriswheel:seat_0", "y": 0 },
+        "facing=east": { "model": "mineferriswheel:seat_0", "y": -90 },
+        "facing=west": { "model": "mineferriswheel:seat_0", "y": 90 }
+    }
+}
