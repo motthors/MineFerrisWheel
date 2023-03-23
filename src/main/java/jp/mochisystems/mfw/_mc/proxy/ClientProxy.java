@@ -1,17 +1,22 @@
 package jp.mochisystems.mfw._mc.proxy;
 
+import jp.mochisystems.core._mc._core._Core;
 import jp.mochisystems.core._mc.gui.GUIHandler;
 import jp.mochisystems.core._mc.renderer.BlocksRenderer;
 import jp.mochisystems.core._mc.world.MTYBlockAccess;
+import jp.mochisystems.core.math.Math;
 import jp.mochisystems.core.util.gui.GuiDragController;
 import jp.mochisystems.core._mc.eventhandler.KeyHandlerClient;
+import jp.mochisystems.mfw._mc._core.MFW;
 import jp.mochisystems.mfw._mc.gui.container.ContainerFerrisCore;
 import jp.mochisystems.mfw._mc.gui.gui.GUIFerrisElevator;
 import jp.mochisystems.mfw._mc.gui.gui.GUIFerrisGarland;
 import jp.mochisystems.mfw._mc.gui.gui.GUIFerrisSelfMover;
 import jp.mochisystems.mfw.ferriswheel.FerrisElevator;
 import jp.mochisystems.mfw.ferriswheel.FerrisGarland;
+import jp.mochisystems.mfw.ferriswheel.FerrisSelfMover;
 import jp.mochisystems.mfw.ferriswheel.FerrisWheel;
+import jp.mochisystems.mfw.sound.FerrisFrameSound;
 import jp.mochisystems.mfw.sound.SoundLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
@@ -76,4 +81,15 @@ public class ClientProxy implements IProxy{
 		return Minecraft.getMinecraft().player;
 	}
 
+	public void PlayMFWSound(FerrisSelfMover part, int soundIdx)
+	{
+		FerrisFrameSound sound = new FerrisFrameSound(
+				SoundLoader.Instance.getSoundEvent(soundIdx),
+				part,
+				Math.floor(part.controller.CorePosX()),
+				Math.floor(part.controller.CorePosY()),
+				Math.floor(part.controller.CorePosZ()),
+				MFW.proxy.getClientPlayer(), soundIdx);
+		_Core.proxy.PlayContinuousSound(sound);
+	}
 }

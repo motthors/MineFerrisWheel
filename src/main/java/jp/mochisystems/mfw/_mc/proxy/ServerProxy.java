@@ -4,15 +4,11 @@ import jp.mochisystems.core._mc.gui.GUIHandler;
 import jp.mochisystems.core._mc.renderer.BlocksRenderer;
 import jp.mochisystems.core._mc.world.MTYBlockAccess;
 import jp.mochisystems.mfw._mc.gui.container.ContainerFerrisCore;
-import jp.mochisystems.mfw._mc.gui.gui.GUIFerrisElevator;
-import jp.mochisystems.mfw._mc.gui.gui.GUIFerrisGarland;
-import jp.mochisystems.mfw._mc.gui.gui.GUIFerrisSelfMover;
 import jp.mochisystems.mfw.ferriswheel.FerrisElevator;
 import jp.mochisystems.mfw.ferriswheel.FerrisGarland;
+import jp.mochisystems.mfw.ferriswheel.FerrisSelfMover;
 import jp.mochisystems.mfw.ferriswheel.FerrisWheel;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 
 public class ServerProxy implements IProxy{
@@ -54,5 +50,10 @@ public class ServerProxy implements IProxy{
 	public EntityPlayer getClientPlayer()
 	{
 		return null;
+	}
+
+	public void PlayMFWSound(FerrisSelfMover part, int idx)
+	{
+
 	}
 }

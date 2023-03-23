@@ -1,49 +1,32 @@
 package jp.mochisystems.mfw.ferriswheel;
 
-import jp.mochisystems.core._mc._core._Core;
-import jp.mochisystems.core.math.Math;
 import jp.mochisystems.mfw._mc._core.MFW;
-import jp.mochisystems.mfw.sound.FerrisFrameSound;
 import jp.mochisystems.mfw.sound.SoundLoader;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 
 public class FerrisSoundManager {
 
-    FerrisPartBase part;
+    FerrisSelfMover part;
 
-    public FerrisSoundManager(FerrisPartBase part)
+    public FerrisSoundManager(FerrisSelfMover part)
     {
         this.part = part;
     }
 
-    private int soundidx = 0;
-
-    public FerrisFrameSound sound;
+    private int soundIdx = 0;
 
     public void SetSoundIndex(int idx){
-        if(soundidx != idx){
-            soundidx = idx;
-            if(sound!=null) Invalid();
+        if(soundIdx != idx){
+            soundIdx = idx;
             if(idx==0) return;
             if(FMLCommonHandler.instance().getEffectiveSide().isClient())
             {
-                String domain = SoundLoader.Instance.getSoundDomain(idx);
-                if(idx >= SoundLoader.Instance.sounds.size())soundidx = 0;
-                FerrisFrameSound sound = new FerrisFrameSound(part,
-                        Math.floor(part.controller.CorePosX()),
-                        Math.floor(part.controller.CorePosY()),
-                        Math.floor(part.controller.CorePosZ()),
-                        MFW.proxy.getClientPlayer(), SoundLoader.soundDomain+":"+domain);
-                this.sound = sound;
-                _Core.proxy.PlayContinuousSound(sound);
-//				MFW_Logger.debugInfo("soundManager register "+domain);
+//                String domain = SoundLoader.Instance.getSoundDomain(idx);
+                if(idx >= SoundLoader.Instance.sounds.size()) soundIdx = 1;
+                MFW.proxy.PlayMFWSound(part, idx);
             }
         }
     }
-    public int GetSoundIndex(){ return soundidx; }
-
-    public void Invalid()
-    {
-        if(sound != null) sound.Invalid();
-    }
+    public int GetSoundIndex(){ return soundIdx; }
+    public void Invalid(){ soundIdx = -1; }
 }

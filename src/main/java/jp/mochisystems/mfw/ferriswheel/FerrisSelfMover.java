@@ -1,5 +1,6 @@
 package jp.mochisystems.mfw.ferriswheel;
 
+import jp.mochisystems.core._mc._core.Logger;
 import jp.mochisystems.core._mc.entity.EntityBlockModelCollider;
 import jp.mochisystems.core._mc.renderer.BlocksRenderer;
 import jp.mochisystems.core._mc.world.MTYBlockAccess;
@@ -199,7 +200,7 @@ public class FerrisSelfMover extends FerrisPartBase implements IBlockModel {
     {
         super.Invalidate();
         ReleaseSyncChildren();
-        renderer.delete();
+        if(renderer!=null) renderer.delete();
         coreRenderer.DeleteBuffer();
     }
 
@@ -207,12 +208,22 @@ public class FerrisSelfMover extends FerrisPartBase implements IBlockModel {
     public void Validate()
     {
         super.Validate();
-        blockAccess.constructFromTag(partNbtOnConstruct,
+        Logger.debugInfo(blockAccess+"");
+        Logger.debugInfo(controller+"");
+        Logger.debugInfo(renderer+"");
+        Logger.debugInfo(coreRenderer+"");
+        Logger.debugInfo(connectorFromParent+"");
+        if(renderer!=null) blockAccess.constructFromTag(partNbtOnConstruct,
                 Math.floor(controller.CorePosX()),
                 Math.floor(controller.CorePosY()),
                 Math.floor(controller.CorePosZ()),
                 true, renderer::CompileRenderer);
-        renderer.delete();
+        else blockAccess.constructFromTag(partNbtOnConstruct,
+                Math.floor(controller.CorePosX()),
+                Math.floor(controller.CorePosY()),
+                Math.floor(controller.CorePosZ()),
+                true, ()->{});
+        if(renderer!=null) renderer.delete();
         coreRenderer.SetDirty();
 //        InitRotAxis();
         connectorFromParent.Reset();

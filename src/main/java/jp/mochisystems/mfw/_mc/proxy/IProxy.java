@@ -2,9 +2,8 @@ package jp.mochisystems.mfw._mc.proxy;
 
 import jp.mochisystems.core._mc.renderer.BlocksRenderer;
 import jp.mochisystems.core._mc.world.MTYBlockAccess;
+import jp.mochisystems.mfw.ferriswheel.FerrisSelfMover;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 
 public interface IProxy{
@@ -17,4 +16,5 @@ public interface IProxy{
 	Side checkSide();
 	
 	EntityPlayer getClientPlayer();
+	void PlayMFWSound(FerrisSelfMover part, int idx);
 }
