@@ -12,9 +12,12 @@ import jp.mochisystems.mfw._mc.gui.gui.GUIFerrisSelfMover;
 import jp.mochisystems.mfw.ferriswheel.FerrisElevator;
 import jp.mochisystems.mfw.ferriswheel.FerrisGarland;
 import jp.mochisystems.mfw.ferriswheel.FerrisWheel;
+import jp.mochisystems.mfw.sound.SoundLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.SoundEvent;
 import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.relauncher.Side;
 
 public class ClientProxy implements IProxy{
@@ -48,6 +51,8 @@ public class ClientProxy implements IProxy{
 		GUIHandler.RegisterBlockModelGui(FerrisElevator.class, this, GUIFerrisElevator.class, ContainerFerrisCore.class);
 		GUIHandler.RegisterBlockModelGui(FerrisGarland.class, this, GUIFerrisGarland.class, ContainerFerrisCore.class);
 
+		SoundLoader.Instance.Load();
+		ForgeRegistries.SOUND_EVENTS.registerAll(SoundLoader.Instance.events.toArray(new SoundEvent[0]));
 	}
 
 	@Override

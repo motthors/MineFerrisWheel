@@ -65,7 +65,7 @@ import java.util.List;
 @TransformerExclusions
 public class MFW {
 	public static final String MODID = "mineferriswheel";
-	public static final String VERSION = "3.0alpha3";
+	public static final String VERSION = "3.0beta2";
 
 
 	//proxy////////////////////////////////////////
@@ -139,8 +139,6 @@ public class MFW {
 		proxy.init();
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new MFW_GUIHandler());
 
-		SoundLoader.Instance.Load();
-		ForgeRegistries.SOUND_EVENTS.registerAll(SoundLoader.Instance.events.toArray(new SoundEvent[0]));
 
 	}
 
