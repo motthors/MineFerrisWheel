@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "ab"
+  ],
+  "key":
+  {
+    "a":
+    {
+      "item": "mineferriswheel:itemblockgarland",
+      "data": 0
+    },
+    "b":
+    {
+      "item": "mineferriswheel:itemblockgarlandend",
+      "data": 0
+    }
+  },
+  "result":
+    {
+      "item": "mineferriswheel:itemFerrisGarlandSeed",
+      "data": 0,
+      "count": 1
+    }
+}

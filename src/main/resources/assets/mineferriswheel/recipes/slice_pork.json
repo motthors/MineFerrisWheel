@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "m"
+  ],
+  "key":
+  {
+    "m":
+    {
+      "item": "minecraft:porkchop",
+      "data": 0
+    }
+  },
+  "result":
+  {
+    "item": "mineferriswheel:ItemSlicePork",
+    "data": 0,
+    "count": 3
+  }
+}

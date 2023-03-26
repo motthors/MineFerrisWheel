@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "s s",
+    "scs"
+  ],
+  "key":
+  {
+    "s":
+    {
+      "item": "minecraft:iron_ingot",
+      "data": 0
+    },
+    "c":
+    {
+      "item": "mineferriswheel:FerrisSeed",
+      "data": 0
+    }
+  },
+  "result":[
+    {
+      "item": "mineferriswheel:itemFerrisGarlandSeed",
+      "data": 0,
+      "count": 1
+    },
+    {
+      "item": "mineferriswheel:FerrisSeed",
+      "data": 0,
+      "count": 1
+    }
+  ]
+}

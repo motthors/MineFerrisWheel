@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "m"
+  ],
+  "key":
+  {
+    "m":
+    {
+      "item": "minecraft:beef",
+      "data": 0
+    }
+  },
+  "result":
+  {
+    "item": "mineferriswheel:ItemSliceBeef",
+    "data": 0,
+    "count": 3
+  }
+}

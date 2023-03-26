@@ -1,0 +1,34 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "   ",
+    "csc",
+    "   "
+  ],
+  "key":
+  {
+    "c":
+    {
+      "item": "minecraft:white_carpet",
+      "data": 0
+    },
+    "s":
+    {
+      "item": "mineferriswheel:FerrisSeed",
+      "data": 0
+    }
+  },
+  "result":[
+    {
+      "item": "mineferriswheel:ferrisseatmarker",
+      "data": 0,
+      "count": 3
+    },
+    {
+      "item": "mineferriswheel:FerrisSeed",
+      "data": 0,
+      "count": 1
+    }
+  ]
+}

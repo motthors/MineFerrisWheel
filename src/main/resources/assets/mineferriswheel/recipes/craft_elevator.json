@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "sss",
+    "srs",
+    "sss"
+  ],
+  "key":
+  {
+    "s":
+    {
+      "item": "minecraft:stone",
+      "data": 0
+    },
+    "r":
+    {
+      "item": "mineferriswheel:FerrisSeed",
+      "data": 0
+    }
+  },
+  "result":
+  {
+    "item": "mineferriswheel:itemblockelevatorconstructor",
+    "data": 0,
+    "count": 1
+  }
+}

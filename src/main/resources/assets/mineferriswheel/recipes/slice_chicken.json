@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "m"
+  ],
+  "key":
+  {
+    "m":
+    {
+      "item": "minecraft:chicken",
+      "data": 0
+    }
+  },
+  "result":
+  {
+    "item": "mineferriswheel:ItemSliceChicken",
+    "data": 0,
+    "count": 3
+  }
+}

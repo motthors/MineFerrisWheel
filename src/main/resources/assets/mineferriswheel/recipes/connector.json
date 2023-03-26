@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "scs"
+  ],
+  "key":
+  {
+    "s":
+    {
+      "item": "minecraft:stick",
+      "data": 0
+    },
+    "c":
+    {
+      "item": "mineferriswheel:FerrisSeed",
+      "data": 0
+    }
+  },
+  "result":[
+    {
+      "item": "mineferriswheel:itemblockconnector",
+      "data": 0,
+      "count": 1
+    },
+    {
+      "item": "mineferriswheel:FerrisSeed",
+      "data": 0,
+      "count": 1
+    }
+  ]
+}

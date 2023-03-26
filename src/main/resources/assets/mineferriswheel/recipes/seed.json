@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "de"
+  ],
+  "key":
+  {
+    "d":
+    {
+      "item": "minecraft:diamond",
+      "data": 0
+    },
+    "e":
+    {
+      "item": "minecraft:emerald",
+      "data": 0
+    }
+  },
+  "result":
+  {
+    "item": "mineferriswheel:FerrisSeed",
+    "data": 0,
+    "count": 1
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+  [
+    "i",
+    "u"
+  ],
+  "key":
+  {
+    "i":
+    {
+      "item": "minecraft:iron_ingot",
+      "data": 0
+    },
+    "u":
+    {
+      "item": "minecraft:cauldron",
+      "data": 0
+    }
+  },
+  "result":
+  {
+    "item": "mineferriswheel:shabushabupot",
+    "data": 0,
+    "count": 1
+  }
+}
