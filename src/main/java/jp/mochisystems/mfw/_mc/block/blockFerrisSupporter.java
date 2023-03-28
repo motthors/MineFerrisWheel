@@ -12,7 +12,7 @@ public class blockFerrisSupporter extends Block{
 	public blockFerrisSupporter()
 	{
 		super(Material.GROUND);
-		this.setHardness(1.0f);
+		this.setHardness(0.3f);
 		this.setResistance(2000.0F);
 		this.setLightOpacity(0);
 //		this.setBlockBounds(0.1875F, 0.1875F, 0.1875F, 0.8125F, 0.8125F, 0.8125F);

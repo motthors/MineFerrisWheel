@@ -65,7 +65,7 @@ import java.util.List;
 @TransformerExclusions
 public class MFW {
 	public static final String MODID = "mineferriswheel";
-	public static final String VERSION = "3.0beta2";
+	public static final String VERSION = "3.0beta4";
 
 
 	//proxy////////////////////////////////////////

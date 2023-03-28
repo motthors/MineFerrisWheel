@@ -39,7 +39,9 @@ public class blockShabuNabe extends Block{
 
     public blockShabuNabe()
     {
-        super(Material.IRON);
+        super(Material.GROUND);
+        this.setHardness(0.3F);
+        this.setResistance(2000.0F);
         setDefaultState(blockState.getBaseState().withProperty(IS_FILL, false).withProperty(IS_HOT, false));
     }
 
